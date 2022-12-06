@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registeration</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form class="container" action="http://localhost:8000/accounts/register/" method="POST">
+    <div>
+        <h2>Please enter your information </h2>
+    </div>
+    {% csrf_token %}
+    <div>
+        {{ form.username.errors }}
+    </div>
+    <label for="input-username"> Username </label>
+    <input id="input-username" type="text" name="username" value="{{ request.POST.username }}"/>
+
+    <div>
+        {{ form.email.errors }}
+    </div>
+    <label for="input-email"> Email </label>
+    <input id="input-email" type="email" name="email" value="{{ request.POST.email }}"/>
+
+    <div>
+        {{ form.password1.errors }}
+    </div>
+    <label for="input-password"> Password </label>
+    <input id="input-password" type="password" name="password1"/>
+
+    <div>
+        {{ form.password2.errors }}
+    </div>
+    <label for="input-repeat-password"> Repeat password </label>
+    <input id="input-repeat-password" type="password" name="password2"/>
+    <br>
+    <label for="input-first-name"> First name </label>
+    <input id="input-first-name" type="text" name="first_name" value="{{ request.POST.first_name }}"/>
+    <br>
+    <label for="input-last-name"> Last name </label>
+    <input id="input-last-name" type="text" name="last_name" value="{{ request.POST.last_name }}"/>
+    <br>
+    <div>
+        {{ form.phone_number.errors }}
+        </div>
+        {{ form.phone_number.label_tag }}
+        {% if request.POST.phone_number %}
+            <input id="id_phone_number" type="text" name="phone_number" value="{{ request.POST.phone_number }}"/>
+        {% else %}
+            {{ form.phone_number }}
+        {% endif %}
+    <br>
+    <button type="submit">Sign me up!</button>
+
+</form>
+</body>
+</html>

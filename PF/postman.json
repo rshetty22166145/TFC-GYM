@@ -1,0 +1,981 @@
+{
+	"info": {
+		"_postman_id": "fea191e1-52e7-4f33-aaf6-4c891c6bb8c9",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23995608"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12341234a",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "12341234a",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "a@a.com",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "f",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "l",
+							"type": "text"
+						},
+						{
+							"key": "phone_number",
+							"value": "1231234",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12341234a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/logout/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "abc",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "def",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "edit@utoronto.ca",
+							"type": "text"
+						},
+						{
+							"key": "phone_number",
+							"value": "0000",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe plans",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cardnumber",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "curr_plan",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cvv",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "expiry",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "renew",
+							"value": "True",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subscriptions/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subscriptions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check user plan",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subscriptions/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subscriptions",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user subscription",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cardnumber",
+							"value": "12341234",
+							"type": "text"
+						},
+						{
+							"key": "curr_plan",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cvv",
+							"value": "333",
+							"type": "text"
+						},
+						{
+							"key": "expiry",
+							"value": "2222",
+							"type": "text"
+						},
+						{
+							"key": "renew",
+							"value": "True",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subscriptions/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subscriptions",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel user subscription",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subscriptions/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subscriptions",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check user payment history",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/payments/{{username}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"payments",
+						"{{username}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the class schedule of a specific studio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enrol Class",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "class_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "instance_id",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/enrol/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						"enrol",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drop Class",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "class_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "instance_id",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/drop/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						"drop",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User class schedule",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/schedule/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						"schedule",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User class history",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/accounts/{{username}}/history/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"accounts",
+						"{{username}}",
+						"history",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio Detail Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by class name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/class/{{class_name}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"class",
+						"{{class_name}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by coach name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/coach/{{coach_name}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"coach",
+						"{{coach_name}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by date starting from~",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/date/{{year}}-{{month}}-{{day}}/start/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"date",
+						"{{year}}-{{month}}-{{day}}",
+						"start",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by date end until",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/date/{{year}}-{{month}}-{{day}}/end/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"date",
+						"{{year}}-{{month}}-{{day}}",
+						"end",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by date range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/date/{{year}}-{{month}}-{{day}}/{{year2}}-{{month2}}-{{day2}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"date",
+						"{{year}}-{{month}}-{{day}}",
+						"{{year2}}-{{month2}}-{{day2}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Studio's class schedule filter by time range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{studio_id}}/time/{{hour}}-{{min}}-{{sec}}/{{hour2}}-{{min2}}-{{sec2}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{studio_id}}",
+						"time",
+						"{{hour}}-{{min}}-{{sec}}",
+						"{{hour2}}-{{min2}}-{{sec2}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of studios based on geolocation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{latitute}}/{{longitude}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{latitute}}",
+						"{{longitude}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search through the listed studio using studio name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{latitute}}/{{longitude}}/?search={{studio_name}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{latitute}}",
+						"{{longitude}}",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "{{studio_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search through the listed studio using class name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{latitute}}/{{longitude}}/class/{{class_name}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{latitute}}",
+						"{{longitude}}",
+						"class",
+						"{{class_name}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search through the listed studio using coach name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{latitute}}/{{longitude}}/coach/{{coach_name}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{latitute}}",
+						"{{longitude}}",
+						"coach",
+						"{{coach_name}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search through the listed studio using amenities type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/studios/{{latitute}}/{{longitude}}/amenities/{{amenities_type}}/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"studios",
+						"{{latitute}}",
+						"{{longitude}}",
+						"amenities",
+						"{{amenities_type}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
