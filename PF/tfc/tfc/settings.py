@@ -182,3 +182,6 @@ SIMPLE_JWT = {
 }
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]
+
+MEDIA_URL = ''
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

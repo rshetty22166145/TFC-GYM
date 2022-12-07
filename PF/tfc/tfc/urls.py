@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
@@ -62,4 +64,4 @@ urlpatterns = [
          class_views.ClassTimeRangeView.as_view(), name='detail_search_time_range'),
     path("classes/<int:class_id>/", class_views.ClassDetailView.as_view(), name='class_detail'),
     path("payments/<str:username>/", subscription_views.PaymentsListView.as_view(), name='payments_history'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
