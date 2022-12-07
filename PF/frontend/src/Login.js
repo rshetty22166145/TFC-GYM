@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./context/AuthProvider";
 
 import axios from './api/axios';
-const LOGIN_URL = 'http://127.0.0.1:8000/api/accounts/login/';
+const LOGIN_URL = 'http://localhost:8000/api/accounts/login/';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -30,8 +30,6 @@ const Login = () => {
                 JSON.stringify({ username, password }),
                 {
                     headers: { 'Content-Type': 'application/json' , 
-                    'Access-Control-Allow-Origin': 'http://localhost:3000',
-                    'Access-Control-Allow-Credentials': 'true',
                 },
                     withCredentials: true
                 }

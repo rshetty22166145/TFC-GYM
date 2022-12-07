@@ -20,7 +20,6 @@ from accounts import views as accounts_views
 from studios import views as studio_views
 from classes import views as class_views
 from subscriptions import views as subscription_views
-from accounts.views import front
 
 router = routers.DefaultRouter()
 router.get_api_root_view().cls.__name__ = (
@@ -33,8 +32,6 @@ router.register("accounts", accounts_views.AccountsAPIViewSet, basename="account
 router.register("subscriptions", subscription_views.SubscriptionsAPIViewSet, basename="subscriptions")
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #test-frontend
-    path("", front, name="front"),
     # api urls
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("api/", include(router.urls)),  # ADDITION: include the api urls

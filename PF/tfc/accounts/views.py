@@ -22,11 +22,6 @@ from accounts.serializers import SignupSerializer, UserSerializer, RestrictedUse
 from classes.models import Class, Event
 from subscriptions.models import UserSubscription, UserPayments
 
-#Just a test here to see if frontend working
-def front(request):
-    context = { }
-    return render(request, "index.html", context)
-
 class IsSelfOrAdmin(BasePermission):
     """
     Allow access to admin users or the user themselves.
