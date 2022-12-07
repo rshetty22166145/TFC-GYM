@@ -37,6 +37,8 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
+            //save token to local storage
+            localStorage.setItem('token', accessToken);
             //const roles = response?.data?.roles;
             setAuth({ username, password, accessToken });
             setUser('');
