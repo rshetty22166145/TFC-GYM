@@ -22,6 +22,7 @@ function StudioList() {
             id={studio.id}
             name={studio.name}
             geoLocation={studio.geographical_location}
+            images={studio.imagesSerializer}
           />
         ))}
       </div>
