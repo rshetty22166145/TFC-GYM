@@ -1,28 +1,26 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Studio from "./routes/Studio";
+import StudioDetail from "./routes/StudioDetail";
+import StudioList from "./routes/StudioList";
 import Home from "./routes/Home";
 import Login from './Login';
 function App() {
-  /*return (
+  return (
     <Router>
       <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/studio/:id">
-          <Studio />
+          <StudioDetail />
+        </Route>
+        <Route path="/studio">
+          <StudioList />
         </Route>
         <Route path="/">
           <Home />
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
       </Switch>
     </Router>
-  );
-  */
-  return (
-    <main className="App">
-      <Login />
-    </main>
   );
 }
 
