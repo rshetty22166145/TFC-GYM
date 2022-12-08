@@ -76,6 +76,7 @@ class AccountsAPIViewSet(
                 print("restricted")
                 return RestrictedUserSerializer
         elif self.action == "login":
+            print(self.request)
             return AuthTokenSerializer
         elif self.action == "logout":
             # we don't need a serializer for the logout action

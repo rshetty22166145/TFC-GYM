@@ -13,6 +13,8 @@ import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyBFrZlgl056ecOfkIxxXBsSFPaFeVzDFYU");
 
+console.log(localStorage);
+
 let DefaultIcon = L.icon({
     ...L.Icon.Default.prototype.options,
     iconUrl: icon,
