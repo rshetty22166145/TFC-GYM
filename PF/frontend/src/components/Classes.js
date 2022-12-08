@@ -18,10 +18,10 @@ const Classes = () => {
         <div>
             <h1>Available Classes</h1>
             <div className='item-container'>
-                {classes.map((class) => (
-                    <div className='card' key ={class.id}>
-                        <img src={class.image} alt=''/>
-                        <h3>{class}</h3>
+                {classes.map((classes) => (
+                    <div className='card' key ={classes.id}>
+                        <img src={classes.image} alt=''/>
+                        <h3>{classes}</h3>
                     </div>
                 ))}
             </div>
