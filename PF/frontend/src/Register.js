@@ -266,8 +266,8 @@ const Register = () => {
                             type="file"
                             id="Avatar"
                             autoComplete="off"
-                            onChange={(e) => setAvatar(e.target.value)}
-                            value={avatar}
+                            onChange={(e) => setAvatar(e.target.files[0])}
+                            value={avatar.filename}
                         />
 
                         <button disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}>Sign Up</button>
