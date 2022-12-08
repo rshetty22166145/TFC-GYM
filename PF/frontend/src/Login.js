@@ -39,7 +39,7 @@ const Login = () => {
             const accessToken = response?.data?.accessToken;
             console.log(accessToken);
             //save token to local storage
-            localStorage.setItem('token', accessToken);
+            localStorage.setItem("token", response.data.token);
             //const roles = response?.data?.roles;
             setAuth({ username, password, accessToken });
             setUser('');

@@ -3,6 +3,7 @@ import StudioDetail from "./routes/StudioDetail";
 import StudioList from "./routes/StudioList";
 import Home from "./routes/Home";
 import Login from './Login';
+import ProfileView from './profile';
 import Register from './Register';
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/accounts/:username">
+          <ProfileView />
         </Route>
         <Route path="/studio/:id">
           <StudioDetail />
