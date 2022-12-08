@@ -33,6 +33,7 @@ const Login = () => {
                     withCredentials: true
                 }
             );
+            console.log(response);
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
@@ -45,6 +46,7 @@ const Login = () => {
             setPwd('');
             setSuccess(true);
         } catch (err) {
+            console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {

@@ -72,7 +72,7 @@ const Register = () => {
             return;
         }
         try {
-            const formData = FormData();
+            const formData = new FormData();
             formData.append("username", username);
             formData.append("password", password);
             formData.append("password2", password2);

@@ -183,3 +183,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1','http://localhost:3000']
