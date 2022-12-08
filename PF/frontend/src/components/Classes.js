@@ -1,35 +1,62 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import {useParams} from 'react-router-dom';
 import axios from '../api/axios';
 
-const Classes = () => {
-    const [classes, setClasses] = useState([]);
+function FetchClasses(){
+    const [classes, setClasses] = useState({});
+
     useEffect(() => {
-        fetchClasses();
-    }, [])
-    const fetchClasses = () =>{
-        axios.get('http://localhost:8000/studios/id').then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        });
-    };
-    return (
+        axios
+        .get(`http://localhost:8000/studios/${id}`)
+        .then((res) => {
+            console.log(res)
+            setClasses(res.data)
+    })
+    .catch((err) => {
+    console.log(err);
+    }, [id])
+
+    return(
         <div>
             <h1>Available Classes</h1>
-            <div className='item-container'>
-                {classes.map((class) => (
-                    <div className='card' key ={class.id}>
-                        <img src={class.image} alt=''/>
-                        <h3>{class}</h3>
-                    </div>
-                ))}
-            </div>
+            <div>{classes.id}</div>
         </div>
     )
-}
+})
 
 export default Classes;
+// const Classes = () => {
+//     const [classes, setClasses] = useState([]);
+//     const [id, setId] = useState(1);
+//     const params = useParams();
+//     useEffect(() => {
+//         fetchClasses();
+//     }, [])
+//     const fetchClasses = () =>{
+//         axios.get(`http://localhost:8000/studios/${params.id}`).then((res) => {
+//             console.log(res)
+//             setClasses(res.data);
+//         }).catch((err) => {
+//             console.log(err);
+//         })
+//     }, [params.id]);
+//     return (
+//         <div>
+//             <h1>Available Classes</h1>
+//             <div className='item-container'>
+//                 {classes.map((class) => (
+//                     <div className='card' key ={class.id}>
+//                         <img src={class.image} alt=''/>
+//                         <h3>{class}</h3>
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
+//     )
+// }
+
+
 
 //Show all available classes of a chosen studio, appear from start time 
 //Allow user to enrol or drop a class 
