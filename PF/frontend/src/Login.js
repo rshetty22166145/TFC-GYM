@@ -65,7 +65,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <a href="http://localhost:3000/">Go to Home</a>
                     </p>
                 </section>
             ) : (
@@ -97,8 +97,7 @@ const Login = () => {
                     <p>
                         Create a new account<br />
                         <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Sign Up</a>
+                            <a href="http://localhost:3000/Register">Sign Up</a>
                         </span>
                     </p>
                 </section>

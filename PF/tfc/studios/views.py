@@ -56,7 +56,7 @@ class StudioDetailView(APIView):
             'phone_number': studio.phone_number,
             'address': studio.address,
             'postal_code': studio.postal_code,
-            'geographical_location': geo,
+            'geographical_location': json_geo,
             # 'geographical_location': json_geo,
             'link': f"https://www.google.com/maps/search/?api=1&query={json_geo[0]}%2C{json_geo[1]}",
             'classes': sorted_list
@@ -90,6 +90,7 @@ class StudioListSortView(ListAPIView):
             studio.save()
 
         queryset = self.model.objects.all()
+        print(queryset.order_by('distance'))
         return queryset.order_by('distance')
 
 

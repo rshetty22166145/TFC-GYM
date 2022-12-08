@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import serializers
 
 from studios.models import Studio, Image
@@ -12,6 +14,11 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class GeoLocationSerializer(serializers.ModelSerializer):
     imagesSerializer = ImageSerializer(many=True, source='images')
+
+    geographical_location = serializers.SerializerMethodField()
+
+    def get_geographical_location(self, obj):
+        return json.loads(obj.geographical_location)
 
     class Meta:
         model = Studio
