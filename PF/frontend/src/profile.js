@@ -12,7 +12,7 @@ function ProfileView() {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': "token ${token}",
+            'Authorization': `token ${token}`,
         }})).json();
         console.log(json);
         setUser(json);
