@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./context/AuthProvider";
-
+import './accounts.css';
 import axios from './api/axios';
 const LOGIN_URL = 'http://localhost:8000/api/accounts/login/';
 
@@ -50,11 +50,11 @@ const Login = () => {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Invalid Login');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
-                setErrMsg('Login Failed. You have entered incorrect Information.');
+                setErrMsg('Invalid Login');
             }
             errRef.current.focus();
         }
