@@ -20,12 +20,6 @@ function App() {
         <Route path="/studio">
           <StudioList />
         </Route>
-        <Route path="/classes">
-          <Classes />
-        </Route>
-        <Route path="/subscriptions">
-          <Subscriptions />
-        </Route>
         <Route path="/">
           <Home />
         </Route>
