@@ -8,7 +8,7 @@ function Studio({ id, name, geoLocation, images, amenities }) {
             <h2>
             <Link to={`/studio/${id}`}>{name}</Link>
             </h2>
-            <h3>{geoLocation}</h3>
+            <h3>{geoLocation[0]}, {geoLocation[1]}</h3>
         </div>
     );
 }
