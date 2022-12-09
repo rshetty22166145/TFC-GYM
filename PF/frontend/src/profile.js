@@ -10,6 +10,25 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z
 
 function ProfileView() {
     const [user, setUser] = useState([]);
+    const errRef = useRef();
+
+    const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [EmailFocus, setEmailFocus] = useState(false);
+
+    const [password, setPwd] = useState('');
+    const [validPwd, setValidPwd] = useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
+
+    const [first_name, setFirst_name] = useState('');
+    const [last_name, setLast_name] = useState('');
+    const [phone_number, setPhone_number] = useState('');
+    const [avatar, setAvatar] = useState('');
+    const [avatarChanged, setAvatarChanged] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
+
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
     const { username } = useParams();
     const getUser = async () => {
         const token = localStorage.getItem('token')
@@ -26,28 +45,34 @@ function ProfileView() {
     useEffect(() => {
         getUser();
     }, []);
+    useEffect(() => {
+        console.log("first name loaded: "+ first_name);
+    }, [first_name]);
+    useEffect(() => {
+        console.log("last name loaded: "+ last_name);
+    }, [last_name]);
+    useEffect(() => {
+        console.log("email loaded: "+ email);
+    }, [email]);
+    useEffect(() => {
+        console.log("phone number loaded: "+ phone_number);
+    }, [phone_number]);
+    useEffect(() => {
+        console.log("avatar changed :"+ avatarChanged);
+    }, [avatarChanged]);
+    useEffect(() => {
+        console.log(avatar);
+        console.log("avatar loaded: "+ avatar);
+    }, [avatar]);
 
-    const errRef = useRef();
 
-    const [email, setEmail] = useState('');
-    const [validEmail, setValidEmail] = useState(false);
-    const [EmailFocus, setEmailFocus] = useState(false);
-
-    const [password, setPwd] = useState('');
-    const [validPwd, setValidPwd] = useState(false);
-    const [pwdFocus, setPwdFocus] = useState(false);
-
-    const [first_name, setFirst_name] = useState('');
-
-    const [last_name, setLast_name] = useState('');
-
-    const [phone_number, setPhone_number] = useState('');
-
-    const [avatar, setAvatar] = useState('');
-
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
-
+    useEffect(() => {
+        setFirst_name(user.first_name);
+        setLast_name(user.last_name);
+        setEmail(user.email);
+        setPhone_number(user.phone_number);
+        setAvatar(user.avatar);
+    }, [user])
 
     useEffect(() => {
         setValidEmail(EMAIL_REGEX.test(email));
@@ -60,17 +85,6 @@ function ProfileView() {
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(password));
     }, [password])
-
-    /*
-    {
-    "username": "rohit",
-    "first_name": "rohit",
-    "last_name": "",
-    "email": "rshetty22166@gmail.com",
-    "phone_number": "",
-    "avatar": null
-    }
-    */
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -94,8 +108,7 @@ function ProfileView() {
             console.log(token)
             const response = await axios.put(`http://localhost:8000/api/accounts/${username}/`, formData,
                 {
-                    headers: { 'Content-Type': 'application/json' },
-                    'Authorization': `token ${token}`,
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `token ${token}`},
                     withCredentials: true,
                 }
             );
@@ -116,19 +129,14 @@ function ProfileView() {
             errRef.current.focus();
         }
     }
-    /*
-    return (
-        <div>
-            <h2>{ user.username }</h2>
-            <h3>{ user.first_name }</h3>
-            <h3>{ user.last_name }</h3>
-            <h3>{ user.email }</h3>
-            <h3>{ user.phone_number }</h3>
-            <h3>{ user.avatar }</h3>
-        </div>
-    )
-    */
-
+    
+    function Image() {
+        if (avatarChanged) {
+            return <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+        } else {
+            return <img src={avatar} alt="Avatar" />
+        }
+    }
 
     return (
         <>
@@ -153,7 +161,7 @@ function ProfileView() {
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
                             value={password}
-                            defaultValue={user.password}
+                            defaultValue={password}
                             required
                             aria-invalid={validPwd ? "false" : "true"}
                             aria-describedby="pwdnote"
@@ -178,7 +186,7 @@ function ProfileView() {
                             autoComplete="off"
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
-                            defaultValue={user.email}
+                            defaultValue={email}
                             aria-invalid={validEmail ? "false" : "true"}
                             aria-describedby="emailnote"
                             onFocus={() => setEmailFocus(true)}
@@ -198,7 +206,7 @@ function ProfileView() {
                             autoComplete="off"
                             onChange={(e) => setFirst_name(e.target.value)}
                             value={first_name}
-                            defaultValue={user.first_name}
+                            defaultValue={first_name}
                         />
 
                        <label htmlFor="last_name">
@@ -210,7 +218,7 @@ function ProfileView() {
                             autoComplete="off"
                             onChange={(e) => setLast_name(e.target.value)}
                             value={last_name}
-                            defaultValue={user.last_name}
+                            defaultValue={last_name}
                         />
 
                         <label htmlFor="phone_number">
@@ -222,19 +230,21 @@ function ProfileView() {
                             autoComplete="off"
                             onChange={(e) => setPhone_number(e.target.value)}
                             value={phone_number}
-                            defaultValue={user.phone_number}
+                            defaultValue={phone_number}
                         />
 
                         <label htmlFor="avatar">
                             Avatar:
                         </label>
+                        <Image/>
                         <input
                             type="file"
                             id="Avatar"
                             autoComplete="off"
-                            onChange={(e) => setAvatar(e.target.files[0])}
-                            value={avatar.filename}
-                            defaultValue={user.avatar}
+                            onChange={(e) => {
+                                setAvatar(e.target.files[0]);
+                                setAvatarChanged(true);
+                            }}
                         />
 
                         <button disabled={!validPwd || !validEmail ? true : false}>Edit</button>
