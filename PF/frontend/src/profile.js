@@ -5,9 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
 
 //regex checks
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 function ProfileView() {
     const [user, setUser] = useState([]);
     const errRef = useRef();
@@ -16,9 +14,6 @@ function ProfileView() {
     const [validEmail, setValidEmail] = useState(false);
     const [EmailFocus, setEmailFocus] = useState(false);
 
-    const [password, setPwd] = useState('');
-    const [validPwd, setValidPwd] = useState(false);
-    const [pwdFocus, setPwdFocus] = useState(false);
 
     const [first_name, setFirst_name] = useState('');
     const [last_name, setLast_name] = useState('');
@@ -80,24 +75,13 @@ function ProfileView() {
 
     useEffect(() => {
         setErrMsg('');
-    }, [password, email])
-
-    useEffect(() => {
-        setValidPwd(PWD_REGEX.test(password));
-    }, [password])
+    }, [email])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if button enabled with JS hack
-        const v2 = PWD_REGEX.test(password);
-        //const v3 = PWD_REGEX.test(email);
-        if (!v2) {
-            setErrMsg("Invalid Entry");
-            return;
-        }
         try {
             const formData = new FormData();
-            formData.append("password", password);
+            formData.append("password", "");
             formData.append("email", email);
             formData.append("first_name", first_name);
             formData.append("last_name", last_name);
@@ -151,30 +135,6 @@ function ProfileView() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Edit Profile</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="password">
-                            Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !password ? "hide" : "invalid"} />
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={password}
-                            defaultValue={password}
-                            required
-                            aria-invalid={validPwd ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                        />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.<br />
-                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                        </p>
-
                         <label htmlFor="email">
                             Email:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
@@ -191,6 +151,7 @@ function ProfileView() {
                             aria-describedby="emailnote"
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
+                            required
                         />
                         <p id="emailnot" className={EmailFocus && email && !validEmail ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
@@ -207,6 +168,7 @@ function ProfileView() {
                             onChange={(e) => setFirst_name(e.target.value)}
                             value={first_name}
                             defaultValue={first_name}
+                            required
                         />
 
                        <label htmlFor="last_name">
@@ -219,6 +181,7 @@ function ProfileView() {
                             onChange={(e) => setLast_name(e.target.value)}
                             value={last_name}
                             defaultValue={last_name}
+                            required
                         />
 
                         <label htmlFor="phone_number">
@@ -231,6 +194,7 @@ function ProfileView() {
                             onChange={(e) => setPhone_number(e.target.value)}
                             value={phone_number}
                             defaultValue={phone_number}
+                            required
                         />
 
                         <label htmlFor="avatar">
@@ -245,9 +209,10 @@ function ProfileView() {
                                 setAvatar(e.target.files[0]);
                                 setAvatarChanged(true);
                             }}
+                            defaultValue={avatar}
                         />
 
-                        <button disabled={!validPwd || !validEmail ? true : false}>Edit</button>
+                        <button disabled={!validEmail ? true : false}>Edit</button>
                     </form>
                 </section>
             )}

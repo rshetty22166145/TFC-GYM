@@ -134,6 +134,7 @@ const Register = () => {
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Register</h1>
+                    <h3>All fields are required</h3>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
@@ -221,6 +222,7 @@ const Register = () => {
                             aria-describedby="emailnote"
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
+                            required
                         />
                         <p id="emailnot" className={EmailFocus && email && !validEmail ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
@@ -236,6 +238,7 @@ const Register = () => {
                             autoComplete="off"
                             onChange={(e) => setFirst_name(e.target.value)}
                             value={first_name}
+                            required
                         />
 
                        <label htmlFor="last_name">
@@ -247,6 +250,7 @@ const Register = () => {
                             autoComplete="off"
                             onChange={(e) => setLast_name(e.target.value)}
                             value={last_name}
+                            required
                         />
 
                         <label htmlFor="phone_number">
@@ -258,6 +262,7 @@ const Register = () => {
                             autoComplete="off"
                             onChange={(e) => setPhone_number(e.target.value)}
                             value={phone_number}
+                            required
                         />
 
                         <label htmlFor="avatar">
@@ -269,6 +274,7 @@ const Register = () => {
                             autoComplete="off"
                             onChange={(e) => setAvatar(e.target.files[0])}
                             value={avatar.filename}
+                            required
                         />
 
                         <button disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}>Sign Up</button>
