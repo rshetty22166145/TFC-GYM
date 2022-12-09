@@ -10,6 +10,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import Geocode from "react-geocode";
+import SearchBar from "../components/SearchBar";
 
 Geocode.setApiKey("AIzaSyBFrZlgl056ecOfkIxxXBsSFPaFeVzDFYU");
 
@@ -143,6 +144,7 @@ function StudioList() {
 
     return (
       <div>
+        <SearchBar></SearchBar>
         <div id="mapid1" style={{height: 300}}>
         <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: '300px', width: '500px' }} ref={setMap} whenCreated={setMap}>
           <TileLayer

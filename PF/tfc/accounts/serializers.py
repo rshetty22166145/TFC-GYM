@@ -47,7 +47,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["username",  "password", "first_name", "last_name", "email", "phone_number", "avatar"]
         read_only_fields = ["username"]  # we can also specify a list of fields to be read only (not editable)
         extra_kwargs = {
-            'password': {'write_only': True, 'required': False}
+            'password': {'write_only': True, 'required': False},
+            'avatar': {'required': False}
         }
 
     def update(self, instance, validated_data):
@@ -55,8 +56,10 @@ class UserSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data['last_name']
         instance.email = validated_data['email']
         instance.phone_number = validated_data['phone_number']
-        instance.avatar = validated_data['avatar']
         print(validated_data)
+        if 'avatar' in validated_data.keys():
+            print("avatar changed")
+            instance.avatar = validated_data['avatar']
         if 'password' in validated_data.keys():
             print("password changed")
             instance.set_password(validated_data['password'])

@@ -62,11 +62,21 @@ function ProfileView() {
 
 
     useEffect(() => {
-        setFirst_name(user.first_name);
-        setLast_name(user.last_name);
-        setEmail(user.email);
-        setPhone_number(user.phone_number);
-        setAvatar(user.avatar);
+        if (user.first_name !== null) {
+            setFirst_name(user.first_name);
+        }
+        if (user.last_name !== null) {
+            setLast_name(user.last_name);
+        }
+        if (user.email !== null) {
+            setEmail(user.email);
+        }
+        if (user.phone_number !== null) {
+            setPhone_number(user.phone_number);
+        }
+        if (user.avatar !== null) {
+            setAvatar(user.avatar);
+        }
     }, [user])
 
     useEffect(() => {
@@ -81,12 +91,13 @@ function ProfileView() {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append("password", "");
             formData.append("email", email);
             formData.append("first_name", first_name);
             formData.append("last_name", last_name);
             formData.append("phone_number", phone_number);
-            formData.append("avatar", avatar);
+            if (avatarChanged) {
+                formData.append("avatar", avatar);
+            }
 
             const token = localStorage.getItem('token')
             console.log(token)
