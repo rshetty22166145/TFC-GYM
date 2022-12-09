@@ -40,6 +40,7 @@ const Login = () => {
             console.log(accessToken);
             //save token to local storage
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", username);
             //const roles = response?.data?.roles;
             setAuth({ username, password, accessToken });
             setUser('');
