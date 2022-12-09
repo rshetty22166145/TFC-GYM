@@ -32,10 +32,10 @@ function StudioList() {
     useEffect(() => {
       const loadData = async() =>{
         const json = await(
-          await fetch(`http://localhost:8000/studios/`)
+          await fetch(`http://localhost:8000/studios/?limit=500`)
         ).json();
-        for (let i = 0; i < json.length; i++){
-          setMarkers(prev => [...prev, json[i].geographical_location]);
+        for (let i = 0; i < json.results.length; i++){
+          setMarkers(prev => [...prev, json.results[i].geographical_location]);
         }
       }
       loadData();
@@ -60,7 +60,8 @@ function StudioList() {
       const json = await(
           await fetch(`http://localhost:8000/studios/${position[0]}/${position[1]}/`)
       ).json();
-      setStudios(json);
+      console.log(json);
+      setStudios(json.results);
     }
     const getList = (e) => {
       e.preventDefault();
