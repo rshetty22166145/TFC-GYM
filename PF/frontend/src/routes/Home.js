@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import NavBar from "../components/NavBar"
 
 function Home() {
-    return <div>Hello</div>
+    return (
+    <div>
+        <NavBar></NavBar>
+        Hello
+    </div>
+    )
 }
 export default Home
