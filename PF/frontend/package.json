@@ -9,12 +9,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
-    "axios": "^1.2.1",
-    "bootstrap": "^5.2.3",
-=======
     "axios": "^0.26.1",
->>>>>>> 65c31127ace815d844d23db4693fa20ea2910ab8
     "cors": "^2.8.5",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.9.3",
