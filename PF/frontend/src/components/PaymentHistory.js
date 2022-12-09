@@ -1,30 +1,75 @@
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 //Get the payment history of the user 
 
-function FetchPaymentHistory(){
-    const [payments, setPayments] = useState({username: {}});
-    const params = useParams()
-
+function PaymentHistoryView(){
+    const [user, setUser] = useState([]);
+    const { username } = useParams();
+    const getUser = async () => {
+        const token = localStorage.getItem('token')
+        console.log(token)
+        const json = await(await fetch(`http://localhost:8000/payments/${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `token ${token}`,
+            }})).json();
+            console.log(json);
+            setUser(json);
+        }
     useEffect(() => {
-        axios
-        .get(`http://localhost:8000/payments/${params.username}`)
-        .then((res) => {
-            console.log(res)
-            setPayments(res.data)
-    })
-    .catch((err) => {
-    console.log(err);
-    }, [username])
+        getUser();
+    }, []);
 
     return(
         <div>
             <h1>Payment History</h1>
-            <div>{payments.username}</div>
+            <div className='item-container'>
+                 {user.map((user) => (
+                    <div className='card' key ={user.id}>
+                        <p>{user.id}</p>
+                        <p>{user.username}</p>
+                        <p>{user.pay_date}</p>
+                        <p>{user.cardnumber}</p>
+                        <p>{user.amount}</p>
+                        <p>{user.next_pay}</p>
+                     </div>
+                 ))}
+             </div>
         </div>
-    )
-})
+    );
+}
 
-export default PaymentHistory;
+export default PaymentHistoryView;
+
+
+
+
+// function FetchPaymentHistory(){
+//     const [payments, setPayments] = useState({username: {}});
+//     const params = useParams()
+
+//     useEffect(() => {
+//         axios
+//         .get(`http://localhost:8000/payments/${params.username}`)
+//         .then((res) => {
+//             console.log(res)
+//             setPayments(res.data)
+//     })
+//     .catch((err) => {
+//     console.log(err);
+//     }, [username])
+
+//     return(
+//         <div>
+//             <h1>Payment History</h1>
+//             <div>{payments.username}</div>
+//         </div>
+//     )
+// })
+
+
 
 // class PaymentForm extends React.Component {
 //     constructor(props) {
