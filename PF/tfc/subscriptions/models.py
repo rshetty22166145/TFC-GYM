@@ -38,7 +38,7 @@ class UserPayments(models.Model):
     user = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE,related_name="users2")
     username = models.CharField(max_length=100,null=True)
     cardnumber = models.PositiveIntegerField(editable=True)
-    amount = models.PositiveIntegerField()
+    amount = models.FloatField()
     pay_date = models.DateField(auto_now_add=True,editable=True)
     next_pay = models.DateField(null=True,editable=True)
 
