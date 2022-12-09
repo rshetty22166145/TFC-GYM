@@ -15,6 +15,7 @@ Geocode.setApiKey("AIzaSyBFrZlgl056ecOfkIxxXBsSFPaFeVzDFYU");
 
 console.log(localStorage);
 
+
 let DefaultIcon = L.icon({
     ...L.Icon.Default.prototype.options,
     iconUrl: icon,
@@ -29,6 +30,8 @@ function StudioList() {
     const [position, setPosition] = useState([43.68101335719982, -79.39593138840402]);
     const [markers, setMarkers] = useState([]);
     const [postalCode, setPostalCode] = useState("");
+    const [next, setNext] = useState(null);
+
     useEffect(() => {
       const loadData = async() =>{
         const json = await(
@@ -40,6 +43,7 @@ function StudioList() {
       }
       loadData();
     }, []);
+
     useEffect(() => {
       if (!map) return;
 
@@ -55,6 +59,11 @@ function StudioList() {
         setPosition([lat, lng]);
       })
     }, [map]);
+
+    useEffect(() => {
+      console.log("next url:" + next);
+    }, [next])
+
     const getStudio = async() => {
       console.log("data to send : " + position);
       const json = await(
@@ -62,7 +71,9 @@ function StudioList() {
       ).json();
       console.log(json);
       setStudios(json.results);
+      setNext(json.next);
     }
+
     const getList = (e) => {
       e.preventDefault();
       console.log(map);
@@ -74,6 +85,20 @@ function StudioList() {
       }
       getStudio();
     }
+
+    const getNextList = (e) => {
+      e.preventDefault();
+      const getNextStudios = async() => {
+        const json = await(
+            await fetch(next)
+        ).json();
+        console.log(json);
+        setStudios((prev) => [...prev,...json.results]);
+        setNext(json.next);
+      }
+      getNextStudios();
+    }
+
     const getGeoLocation = (e) => {
       Geocode.fromAddress(postalCode).then(
         (response) => {
@@ -86,9 +111,11 @@ function StudioList() {
         }
       );
     }
+
     const onChange = (e) => {
       setPostalCode(e.target.value);
     }
+
     const eventHandlers = useMemo(() => ({
       dragend(e) {
         console.log(e.target);
@@ -96,6 +123,18 @@ function StudioList() {
         setPosition([e.target.getLatLng()["lat"], e.target.getLatLng()["lng"]]);
       },
     }), [])
+
+    function LoadMore() {
+      if (next === null) {
+        return <h2>End</h2>;
+      }
+      return (
+        <button onClick={getNextList}>
+          Load More
+        </button>
+      )
+    }
+
     return (
       <div>
         <div id="mapid1" style={{height: 300}}>
@@ -137,6 +176,7 @@ function StudioList() {
             />
           ))}
         </div>
+        <LoadMore></LoadMore>
       </div>
     )
 }
