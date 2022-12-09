@@ -3,10 +3,11 @@
 
 function FetchPaymentHistory(){
     const [payments, setPayments] = useState({username: {}});
+    const params = useParams()
 
     useEffect(() => {
         axios
-        .get(`http://localhost:8000/payments/${username}`)
+        .get(`http://localhost:8000/payments/${params.username}`)
         .then((res) => {
             console.log(res)
             setPayments(res.data)
@@ -65,4 +66,4 @@ export default PaymentHistory;
 //   }
   
 //   const root = ReactDOM.createRoot(document.getElementById('root'));
-//   root.render(<PaymentForm />);
+//   root.render(<PaymentForm />)
