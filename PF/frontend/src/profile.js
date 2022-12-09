@@ -29,9 +29,9 @@ function ProfileView() {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
-    const { username } = useParams();
+    const username = localStorage.getItem('username');
     const getUser = async () => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
         console.log(token)
         const json = await(await fetch(`http://localhost:8000/api/accounts/${username}/`, {
         method: 'GET',

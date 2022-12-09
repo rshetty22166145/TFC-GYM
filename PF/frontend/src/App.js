@@ -15,7 +15,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/accounts/:username">
+        <Route path="/accounts/edit">
           <ProfileView />
         </Route>
         <Route path="/studio/:id">
