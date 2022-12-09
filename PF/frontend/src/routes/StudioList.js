@@ -31,6 +31,7 @@ function StudioList() {
     const [markers, setMarkers] = useState([]);
     const [postalCode, setPostalCode] = useState("");
     const [next, setNext] = useState(null);
+    const [nameList, setNameList] = useState([]);
 
     useEffect(() => {
       const loadData = async() =>{
@@ -39,6 +40,7 @@ function StudioList() {
         ).json();
         for (let i = 0; i < json.results.length; i++){
           setMarkers(prev => [...prev, json.results[i].geographical_location]);
+          setNameList(prev => [...prev, json.results[i].name]);
         }
       }
       loadData();
@@ -63,6 +65,10 @@ function StudioList() {
     useEffect(() => {
       console.log("next url:" + next);
     }, [next])
+
+    useEffect(() => {
+      console.log(nameList);
+    }, [nameList])
 
     const getStudio = async() => {
       console.log("data to send : " + position);
@@ -151,7 +157,7 @@ function StudioList() {
           {markers.map((position, idx) => 
             <Marker key={`marker-${idx}`} position={position}>
               <Popup>
-                <span>Studio</span>
+                <span>{nameList[idx]}</span>
               </Popup>
             </Marker>
           )}
