@@ -5,6 +5,7 @@ import Home from "./routes/Home";
 import Login from './Login';
 import ProfileView from './profile';
 import Register from './Register';
+import SearchPage from "./routes/SearchPage";
 function App() {
   return (
     <Router>
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path="/accounts/edit">
           <ProfileView />
+        </Route>
+        <Route path="/search">
+          <SearchPage />
         </Route>
         <Route path="/studio/:id">
           <StudioDetail />
