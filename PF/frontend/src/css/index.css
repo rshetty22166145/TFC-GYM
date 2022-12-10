@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+.welcome {
+    text-align:center;
+    color: white;
+}
+.welcome_sub {
+    text-align:center;
+    color: white;
+}
+body {background-color:#454547;}
