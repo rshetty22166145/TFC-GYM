@@ -1,7 +1,7 @@
 from rest_framework import serializers
 import datetime
 from django.utils.translation import gettext_lazy as _
-from subscriptions.models import UserPayments, UserSubscription  # We import the models
+from subscriptions.models import UserPayments, UserSubscription, SubcriptionPlan  # We import the models
 from accounts.serializers import RestrictedUserSerializer , UserSerializer
 from dateutil.relativedelta import relativedelta
 #from ..accounts.serializers import RestrictedUserSerializer
@@ -63,3 +63,9 @@ class UserPaymentsViewSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserPayments
         fields = ["user","username","pay_date","cardnumber" ,"amount","next_pay"]
+
+class SubscriptionPlansViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=SubcriptionPlan
+        fields=["name","price","plan"]
+

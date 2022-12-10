@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from rest_framework.permissions import AllowAny
 import rest_framework
 from dateutil.relativedelta import relativedelta
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
@@ -14,11 +14,11 @@ from rest_framework.response import Response
 from accounts.models import UserProfile
 from classes.models import Event
 from . import  permissions
-from subscriptions.serlializers import UserSubscriptionCreateSerializer ,   UserSubscriptionViewSerializer, UserPaymentsViewSerializer
+from subscriptions.serlializers import UserSubscriptionCreateSerializer ,   UserSubscriptionViewSerializer, UserPaymentsViewSerializer, SubscriptionPlansViewSerializer
 from accounts.serializers import RestrictedUserSerializer
 import django
 from django.contrib.auth import get_user_model
-from subscriptions.models import UserSubscription, UserPayments
+from subscriptions.models import UserSubscription, UserPayments, SubcriptionPlan
 from .permissions import IsOwnerOrAdmin
 
 
@@ -93,3 +93,9 @@ class PaymentsListView(ListAPIView):
         #list, retrieve, update, destroy0
         permission_list = [permissions.IsOwnerOrAdmin, rest_framework.permissions.IsAuthenticated]
         return [permission() for permission in permission_list]
+
+class SubscriptionPlansListView(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = SubscriptionPlansViewSerializer
+    model = SubcriptionPlan
+    queryset = model.objects.all()

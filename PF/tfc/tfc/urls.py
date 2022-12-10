@@ -64,4 +64,5 @@ urlpatterns = [
          class_views.ClassTimeRangeView.as_view(), name='detail_search_time_range'),
     path("classes/<int:class_id>/", class_views.ClassDetailView.as_view(), name='class_detail'),
     path("payments/<str:username>/", subscription_views.PaymentsListView.as_view(), name='payments_history'),
+    path("plans/", subscription_views.SubscriptionPlansListView.as_view(), name='plans_all'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
