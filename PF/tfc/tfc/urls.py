@@ -49,6 +49,8 @@ urlpatterns = [
          studio_views.StudioClassSearchView.as_view(), name='studio_search_class'),
     path("studios/<str:latitude>/<str:longitude>/coach/<str:coach_name>/",
          studio_views.StudioCoachSearchView.as_view(), name='studio_search_coach'),
+    path("studios/<str:latitude>/<str:longitude>/search/<str:studio_name>/<str:class_name>/<str:coach_name>/<str:amenities_type>/",
+         studio_views.StudioSearchView.as_view(), name='studio_search'),
     path("studios/<int:studio_id>/", studio_views.StudioDetailView.as_view(), name='studio_detail'),
     path("studios/<int:studio_id>/class/<str:class_name>/",
          class_views.ClassNameSearchView.as_view(), name='detail_search_class'),

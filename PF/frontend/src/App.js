@@ -19,9 +19,6 @@ function App() {
         <Route path="/accounts/edit">
           <ProfileView />
         </Route>
-        <Route path="/search">
-          <SearchPage />
-        </Route>
         <Route path="/studio/:id">
           <StudioDetail />
         </Route>

@@ -161,3 +161,41 @@ class StudioCoachSearchView(ListAPIView):
 
         queryset = self.model.objects.filter(classes__coach__contains=self.kwargs['coach_name'])
         return queryset.order_by('distance')
+
+
+class StudioSearchView(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = GeoLocationSerializer
+    model = Studio
+
+    def get_queryset(self):
+        longitude = float(self.kwargs['longitude'])
+        latitude = float(self.kwargs['latitude'])
+        studios = Studio.objects.all()
+        studio_name = self.kwargs['studio_name']
+        amenities_type = self.kwargs['amenities_type']
+        class_name = self.kwargs['class_name']
+        coach_name = self.kwargs['coach_name']
+
+        for studio in studios:
+            geo = json.loads(studio.geographical_location)
+            print(geo)
+            studio.distance = calc_dist(geo[0], geo[1], latitude, longitude)
+            print(studio.distance)
+            studio.save()
+
+        queryset = self.model.objects.filter(classes__coach__exact="sdddddddhasdgasgasgdggsd24145fasgh")
+        print(queryset)
+        if amenities_type is not "lol960609loldude":
+            query1 = self.model.objects.filter(amenities__type__contains=amenities_type)
+            queryset = query1
+        if class_name is not "lol960609loldude":
+            query2 = self.model.objects.filter(classes__name__contains=class_name)
+            queryset = query2.union(queryset)
+        if coach_name is not "lol960609loldude":
+            query3 = self.model.objects.filter(classes__coach__contains=coach_name)
+            queryset = query3.union(queryset)
+        if studio_name is not "lol960609loldude":
+            query4 = self.model.objects.filter(name__contains=studio_name)
+            queryset = query4.union(queryset)
+        return queryset.order_by('distance')
