@@ -51,11 +51,11 @@ const Login = () => {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Invalid Login');
+                setErrMsg('Invalid Login Information!');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
-                setErrMsg('Invalid Login');
+                setErrMsg('Invalid Login Information!');
             }
             errRef.current.focus();
         }
@@ -63,19 +63,19 @@ const Login = () => {
 
     return (
         <>
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
+            {success  ? (
+                <section class="outer">
+                    <h1 class="prompt">You are logged in!</h1>
                     <br />
                     <p>
                         <a href="http://localhost:3000/">Go to Home</a>
                     </p>
                 </section>
             ) : (
-                <section>
+                <section class="outer">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Sign In</h1>
-                    <form onSubmit={handleSubmit}>
+                    <h1 class="prompt">Login</h1>
+                    <form onSubmit={handleSubmit} class="basicform">
                         <label htmlFor="username">Username:</label>
                         <input
                             type="text"
@@ -97,8 +97,8 @@ const Login = () => {
                         />
                         <button>Sign In</button>
                     </form>
-                    <p>
-                        Create a new account<br />
+                    <p class="smallprompt">
+                        Create a new account:<br />
                         <span className="line">
                             <a href="http://localhost:3000/Register">Sign Up</a>
                         </span>

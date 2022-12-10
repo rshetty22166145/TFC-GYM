@@ -127,25 +127,26 @@ function ProfileView() {
     
     function Image() {
         if (avatarChanged) {
-            return <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+            return <img src={URL.createObjectURL(avatar)} alt="Avatar" className="photo"/>
         } else {
-            return <img src={avatar} alt="Avatar" />
+            return <img src={avatar} alt="Avatar" className="photo"/>
         }
     }
 
     return (
         <>
             {success ? (
-                <section>
+                <section class="outer">
+                    <h1 class="prompt">Profile Edited!</h1>
                     <p>
                         <a href="http://localhost:3000/"> Go Back Home!</a>
                     </p>
                 </section>
             ) : (
-                <section>
+                <section class="outer">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Edit Profile</h1>
-                    <form onSubmit={handleSubmit}>
+                    <h1 class="prompt">Edit Profile</h1>
+                    <form onSubmit={handleSubmit} class="basicform">
                         <label htmlFor="email">
                             Email:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
