@@ -6,6 +6,7 @@ import Login from './Login';
 import ProfileView from './profile';
 import Register from './Register';
 import HomeProfile from './HomeProfile';
+import PasswordView from './Password';
 import SearchPage from "./routes/SearchPage";
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/accounts/password">
+          <PasswordView />
         </Route>
         <Route path="/profile">
           <HomeProfile />

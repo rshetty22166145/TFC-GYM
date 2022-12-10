@@ -8,7 +8,7 @@ export default function HomeProfile(){
             <p>
                 1.<a href="http://localhost:3000/accounts/edit">Edit Profile Information</a>
                 <br></br>
-                2.<a href="http://localhost:3000/">Change Password</a>
+                2.<a href="http://localhost:3000/accounts/password">Change Password</a>
             </p>
             </section>
         </div>
