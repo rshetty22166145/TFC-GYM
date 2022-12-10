@@ -10,7 +10,6 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import Geocode from "react-geocode";
-import SearchBar from "../components/SearchBar";
 
 Geocode.setApiKey("AIzaSyBFrZlgl056ecOfkIxxXBsSFPaFeVzDFYU");
 
@@ -131,6 +130,123 @@ function StudioList() {
       },
     }), [])
 
+    function SearchBar({map}) {
+      const [search, setSearch] = useState("");
+      const [searchStudioName, setSearchStudioName] = useState(true);
+      const [searchClassName, setSearchClassName] = useState(true);
+      const [searchCoachName, setSearchCoachName] = useState(true);
+      const [searchAmentity, setSearchAmentity] = useState(true);
+  
+      useEffect(() => {
+          console.log("trying to search :" + search)
+      }, [search])
+  
+      useEffect(() => {
+          console.log("map using :" + map)
+      }, [map])
+  
+      useEffect(() => {
+          console.log("Are you searching using studio name? " + searchStudioName)
+      }, [searchStudioName])
+  
+      useEffect(() => {
+          console.log("Are you searching using class name? " + searchClassName)
+      }, [searchClassName])
+  
+      useEffect(() => {
+          console.log("Are you searching using coach name? " + searchCoachName)
+      }, [searchCoachName])
+  
+      useEffect(() => {
+          console.log("Are you searching using amenity? " + searchAmentity)
+      }, [searchAmentity])
+  
+      const handleSearch = () => {
+          console.log(search);
+          SearchResult();
+      };
+  
+      const Checkbox = ({ label, value, onChange }) => {
+          return (
+              <label style={{color: "black"}}>
+                  <input type="checkbox" checked={value} onChange={onChange} />
+                  {label}
+              </label>
+          );
+      };
+  
+      function SearchFilter() {
+          return (
+              <div>
+                  <Checkbox
+                      label="Studio Name"
+                      value={searchStudioName}
+                      onChange={(e) => setSearchStudioName(!searchStudioName)}
+                  />
+                  <Checkbox
+                      label="Class Name"
+                      value={searchClassName}
+                      onChange={(e) => setSearchClassName(!searchClassName)}
+                  />
+                  <Checkbox
+                      label="Coach Name"
+                      value={searchCoachName}
+                      onChange={(e) => setSearchCoachName(!searchCoachName)}
+                  />
+                  <Checkbox
+                      label="Amentities Type"
+                      value={searchAmentity}
+                      onChange={(e) => setSearchAmentity(!searchAmentity)}
+                  />
+              </div>
+          )
+      }
+  
+      const SearchResult = () => {
+        console.log("search -> " + search)
+        let s1 = search;
+        let s2 = search;
+        let s3 = search;
+        let s4 = search;
+        if(!searchStudioName){
+          s1 = "lol960609loldude";
+        }
+        if(!searchClassName){
+          s2 = "lol960609loldude";
+        }
+        if(!searchCoachName){
+          s3 = "lol960609loldude";
+        }
+        if(!searchAmentity){
+          s4 = "lol960609loldude";
+        }
+        const getSearch = async() => {
+          console.log("data to send : " + position);
+          const json = await(
+              await fetch(`http://localhost:8000/studios/${position[0]}/${position[1]}/search/${s1}/${s2}/${s3}/${s4}/`)
+          ).json();
+          console.log(json);
+          setStudios(json.results);
+          setNext(json.next);
+        }
+        getSearch();
+      }
+  
+      return (
+          <div>
+              <input 
+                  value={search} 
+                  onChange={(e) => setSearch(e.target.value)}
+              />
+              <button onClick={handleSearch}>
+                  Search
+              </button>
+              <br></br>
+              <SearchFilter></SearchFilter>
+          </div>
+      );
+    }
+
     function LoadMore() {
       if (next === null) {
         return <h2>End</h2>;
@@ -168,6 +284,7 @@ function StudioList() {
         <button onClick={getGeoLocation}>
           Move to address/postal code
         </button>
+        <SearchBar map={map}></SearchBar>
         <br></br>
         <button onClick={getList}>
           Get List
