@@ -69,7 +69,9 @@ CORS_ALLOW_METHODS = [
     "PATCH",
     "POST",
     "PUT",
+    "*"
 ]
+
 CORS_ALLOW_HEADERS = [
     "accept",
     "accept-encoding",
@@ -80,6 +82,7 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+    "*"
 ]
 
 ROOT_URLCONF = 'tfc.urls'

@@ -64,6 +64,8 @@ urlpatterns = [
          class_views.ClassDateRangeView.as_view(), name='detail_search_date_range'),
     path("studios/<int:studio_id>/time/<str:hour>-<str:min>-<str:sec>/<str:hour2>-<str:min2>-<str:sec2>/",
          class_views.ClassTimeRangeView.as_view(), name='detail_search_time_range'),
+    path("studios/<int:studio_id>/search/<str:year>-<str:month>-<str:day>/<str:year2>-<str:month2>-<str:day2>/<str:hour>-<str:min>-<str:sec>/<str:hour2>-<str:min2>-<str:sec2>/<str:class_name>/<str:coach_name>/",
+         class_views.ClassSearchView.as_view(), name='detail_search'),
     path("classes/<int:class_id>/", class_views.ClassDetailView.as_view(), name='class_detail'),
     path("payments/<str:username>/", subscription_views.PaymentsListView.as_view(), name='payments_history'),
     path("plans/", subscription_views.SubscriptionPlansListView.as_view(), name='plans_all'),

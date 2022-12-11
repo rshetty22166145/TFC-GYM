@@ -6,6 +6,7 @@ from rest_framework.validators import UniqueValidator
 
 from accounts.forms import RegisterForm
 from accounts.models import UserProfile
+from subscriptions.models import UserSubscription
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -42,10 +43,19 @@ class SignupSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    subscribe = serializers.SerializerMethodField()
+
+    def get_subscribe(self, obj):
+        user_subscription = UserSubscription.objects.filter(user=obj)
+        print(len(user_subscription))
+        if len(user_subscription) is not 0:
+            return True
+        return False
+
     class Meta:
         model = get_user_model()
-        fields = ["username",  "password", "first_name", "last_name", "email", "phone_number", "avatar"]
-        read_only_fields = ["username"]  # we can also specify a list of fields to be read only (not editable)
+        fields = ["username",  "password", "first_name", "last_name", "email", "phone_number", "avatar", "subscribe"]
+        read_only_fields = ["username", "subscribe"]  # we can also specify a list of fields to be read only (not editable)
         extra_kwargs = {
             'password': {'write_only': True, 'required': False},
             'avatar': {'required': False}

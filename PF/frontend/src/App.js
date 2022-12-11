@@ -3,12 +3,12 @@ import StudioDetail from "./routes/StudioDetail";
 import StudioList from "./routes/StudioList";
 import Home from "./routes/Home";
 import Login from './Login';
+import Logout from "./logout";
 import ProfileView from './profile';
 import Register from './Register';
 import HomeProfile from './HomeProfile';
 import PasswordView from './Password';
 import SearchPage from "./routes/SearchPage";
-
 function App() {
   return (
     <Router>
@@ -16,14 +16,11 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
         <Route path="/register">
           <Register />
-        </Route>
-        <Route path="/accounts/password">
-          <PasswordView />
-        </Route>
-        <Route path="/profile">
-          <HomeProfile />
         </Route>
         <Route path="/accounts/edit">
           <ProfileView />

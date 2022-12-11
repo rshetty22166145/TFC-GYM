@@ -1,42 +1,72 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import axios from '../api/axios';
+import NavBar from '../components/NavBar';
 
 //Get the payment history of the user 
 
 function PaymentHistoryView(){
-    const [user, setUser] = useState([]);
-    const { username } = useParams();
-    const getUser = async () => {
-        const token = localStorage.getItem('token')
-        console.log(token)
-        const json = await(await fetch(`http://localhost:8000/payments/${username}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `token ${token}`,
-            }})).json();
-            console.log(json);
-            setUser(json);
-        }
+    const [data, setData] = useState(null);
+    const [loaded, setLoaded] = useState(false);
+
     useEffect(() => {
         getUser();
-    }, []);
+    }, [])
+
+    useEffect(() => {
+        console.log("data changed");
+        console.log(data);
+    }, [data])
+
+    useEffect(() => {
+        console.log(loaded);
+    }, [loaded])
+
+    const getUser = async () => {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+        const response = await axios.get(`http://localhost:8000/payments/${username}/`,
+            {
+                headers: { 
+                    'Content-Type': 'application/json' ,
+                    'Authorization': `token ${token}`
+                },
+                withCredentials: true
+            }
+        );
+        console.log(response.data);
+        setData(response.data);
+        setLoaded(true);
+    }
+
+    function UserHistory() {
+        console.log(loaded);
+        if (loaded) {
+            return (
+                <div>
+                    {data.results.map((data) => (
+                    <div className='card' key ={data.id}>
+                        <p>{data.id}</p>
+                        <p>{data.username}</p>
+                        <p>{data.pay_date}</p>
+                        <p>{data.cardnumber}</p>
+                        <p>{data.amount}</p>
+                        <p>{data.next_pay}</p>
+                    </div>
+                    ))}
+                </div>
+            )
+        }
+        return null;
+    }
 
     return(
         <div>
+            <NavBar></NavBar>
             <h1>Payment History</h1>
             <div className='item-container'>
-                 {user.map((user) => (
-                    <div className='card' key ={user.id}>
-                        <p>{user.id}</p>
-                        <p>{user.username}</p>
-                        <p>{user.pay_date}</p>
-                        <p>{user.cardnumber}</p>
-                        <p>{user.amount}</p>
-                        <p>{user.next_pay}</p>
-                     </div>
-                 ))}
-             </div>
+                <UserHistory></UserHistory>
+            </div>
         </div>
     );
 }
