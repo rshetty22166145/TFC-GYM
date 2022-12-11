@@ -52,6 +52,7 @@ urlpatterns = [
     path("studios/<str:latitude>/<str:longitude>/search/<str:studio_name>/<str:class_name>/<str:coach_name>/<str:amenities_type>/",
          studio_views.StudioSearchView.as_view(), name='studio_search'),
     path("studios/<int:studio_id>/", studio_views.StudioDetailView.as_view(), name='studio_detail'),
+    path("studios/<int:studio_id>/d/t/", studio_views.StudioDetailView2.as_view(), name='studio_detail2'),
     path("studios/<int:studio_id>/class/<str:class_name>/",
          class_views.ClassNameSearchView.as_view(), name='detail_search_class'),
     path("studios/<int:studio_id>/coach/<str:coach_name>/",

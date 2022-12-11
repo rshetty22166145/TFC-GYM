@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
 
-function Studio({ id, name, geoLocation, images, amenities }) {
+function Studio({ id, name, address, images, amenities, postalCode }) {
+    console.log(amenities);
+
     return (
-        <div>
-            <img src={images[0].image} alt="Logo" />
+        <div style={{textAlign: "center", color: "white"}}>
+            <img src={images[0].image} height="300px" width="500px" alt="Logo" />
             <h2>
             <Link to={`/studio/${id}`}>{name}</Link>
             </h2>
-            <h3>{geoLocation[0]}, {geoLocation[1]}</h3>
+            <h3>Address : {address}</h3>
+            <h3>Postal Code : {postalCode}</h3>
+            <h3>Amenities</h3>
+            <ul style={{
+                display: "inline-block",
+            }}>
+                {Array.from(amenities).map((amenity, idx) => (
+                    <li key={idx}>{amenity}</li>
+                ))}
+            </ul>
         </div>
     );
 }

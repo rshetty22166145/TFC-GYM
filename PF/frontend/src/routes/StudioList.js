@@ -76,6 +76,11 @@ function StudioList() {
       console.log(nameList);
     }, [nameList])
 
+    const handleSearch = () => {
+      console.log(search);
+      SearchResult();
+    };
+
     const getStudio = async() => {
       console.log("data to send : " + position);
       const json = await(
@@ -136,117 +141,71 @@ function StudioList() {
       },
     }), [])
 
-    function SearchBar({map}) {
-  
-      useEffect(() => {
-          console.log("trying to search :" + search)
-      }, [search])
-  
-      useEffect(() => {
-          console.log("map using :" + map)
-      }, [map])
-  
-      useEffect(() => {
-          console.log("Are you searching using studio name? " + searchStudioName)
-      }, [searchStudioName])
-  
-      useEffect(() => {
-          console.log("Are you searching using class name? " + searchClassName)
-      }, [searchClassName])
-  
-      useEffect(() => {
-          console.log("Are you searching using coach name? " + searchCoachName)
-      }, [searchCoachName])
-  
-      useEffect(() => {
-          console.log("Are you searching using amenity? " + searchAmentity)
-      }, [searchAmentity])
-  
-      const handleSearch = () => {
-          console.log(search);
-          SearchResult();
-      };
-  
-      const Checkbox = ({ label, value, onChange }) => {
-          return (
-              <label style={{color: "black"}}>
-                  <input type="checkbox" checked={value} onChange={onChange} />
-                  {label}
-              </label>
-          );
-      };
-  
-      function SearchFilter() {
-          return (
-              <div>
-                  <Checkbox
-                      label="Studio Name"
-                      value={searchStudioName}
-                      onChange={(e) => setSearchStudioName(!searchStudioName)}
-                  />
-                  <Checkbox
-                      label="Class Name"
-                      value={searchClassName}
-                      onChange={(e) => setSearchClassName(!searchClassName)}
-                  />
-                  <Checkbox
-                      label="Coach Name"
-                      value={searchCoachName}
-                      onChange={(e) => setSearchCoachName(!searchCoachName)}
-                  />
-                  <Checkbox
-                      label="Amentities Type"
-                      value={searchAmentity}
-                      onChange={(e) => setSearchAmentity(!searchAmentity)}
-                  />
-              </div>
-          )
-      }
-  
-      const SearchResult = () => {
-        console.log("search -> " + search)
-        let s1 = search;
-        let s2 = search;
-        let s3 = search;
-        let s4 = search;
-        if(!searchStudioName){
-          s1 = "lol960609loldude";
-        }
-        if(!searchClassName){
-          s2 = "lol960609loldude";
-        }
-        if(!searchCoachName){
-          s3 = "lol960609loldude";
-        }
-        if(!searchAmentity){
-          s4 = "lol960609loldude";
-        }
-        const getSearch = async() => {
-          console.log("data to send : " + position);
-          const json = await(
-              await fetch(`http://localhost:8000/studios/${position[0]}/${position[1]}/search/${s1}/${s2}/${s3}/${s4}/`)
-          ).json();
-          console.log(json);
-          setStudios(json.results);
-          setNext(json.next);
-        }
-        getSearch();
-      }
-  
+    const Checkbox = ({ label, value, onChange }) => {
+      return (
+          <label style={{color: "white", marginRight: "20px"}}>
+              <input type="checkbox" checked={value} onChange={onChange} style={{marginRight: "5px"}}/>
+              {label}
+          </label>
+      );
+    };
+
+  function SearchFilter() {
       return (
           <div>
-              <input 
-                  value={search} 
-                  onChange={(e) => setSearch(e.target.value)}
+              <Checkbox
+                  label="Studio Name"
+                  value={searchStudioName}
+                  onChange={(e) => setSearchStudioName(!searchStudioName)}
               />
-              <button onClick={handleSearch}>
-                  Search
-              </button>
-              <br></br>
-              <SearchFilter></SearchFilter>
+              <Checkbox
+                  label="Class Name"
+                  value={searchClassName}
+                  onChange={(e) => setSearchClassName(!searchClassName)}
+              />
+              <Checkbox
+                  label="Coach Name"
+                  value={searchCoachName}
+                  onChange={(e) => setSearchCoachName(!searchCoachName)}
+              />
+              <Checkbox
+                  label="Amentities Type"
+                  value={searchAmentity}
+                  onChange={(e) => setSearchAmentity(!searchAmentity)}
+              />
           </div>
-      );
+      )
+  }
+
+  const SearchResult = () => {
+    console.log("search -> " + search)
+    let s1 = search;
+    let s2 = search;
+    let s3 = search;
+    let s4 = search;
+    if(!searchStudioName){
+      s1 = "lol960609loldude";
     }
+    if(!searchClassName){
+      s2 = "lol960609loldude";
+    }
+    if(!searchCoachName){
+      s3 = "lol960609loldude";
+    }
+    if(!searchAmentity){
+      s4 = "lol960609loldude";
+    }
+    const getSearch = async() => {
+      console.log("data to send : " + position);
+      const json = await(
+          await fetch(`http://localhost:8000/studios/${position[0]}/${position[1]}/search/${s1}/${s2}/${s3}/${s4}/`)
+      ).json();
+      console.log(json);
+      setStudios(json.results);
+      setNext(json.next);
+    }
+    getSearch();
+  }
 
     function LoadMore() {
       if (next === null) {
@@ -260,13 +219,13 @@ function StudioList() {
     }
 
     return (
-      <div>
+      <div style={{textAlign:"center"}}>
         <NavBar></NavBar>
-        <br></br><br></br>
         <div>
           <div id="mapid1" 
             style={{
               height: 300,
+              marginTop: 100
             }}
           >
             <MapContainer 
@@ -298,25 +257,38 @@ function StudioList() {
               )}
             </MapContainer>
           </div>
-          <input onChange={onChange}></input>
-          <button onClick={getGeoLocation}>
-            Move to address/postal code
-          </button>
-          <SearchBar map={map}></SearchBar>
-          <br></br>
-          <button onClick={getList}>
-            Get List
-          </button>
+          <section class="outer" style={{marginTop:"30px", marginBottom:"30px"}}>
+            <input onChange={onChange}></input>
+            <button onClick={getGeoLocation}>
+              Move to address/postal code
+            </button>
+            <button onClick={getList}>
+              Get List
+            </button>
+            <br></br>
+            <input 
+              value={search} 
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button onClick={handleSearch}>
+                Search
+            </button>
+            <SearchFilter></SearchFilter>
+          </section>
         </div>
         <div>
           {studios.map((studio) => (
-            <Studio
-              key={studio.id}
-              id={studio.id}
-              name={studio.name}
-              geoLocation={studio.geographical_location}
-              images={studio.imagesSerializer}
-            />
+            <section class="outer" style={{marginTop:"30px", marginBottom:"30px"}}>
+              <Studio
+                key={studio.id}
+                id={studio.id}
+                name={studio.name}
+                address={studio.address}
+                images={studio.imagesSerializer}
+                amenities={studio.amenities}
+                postalCode={studio.postal_code}
+              />
+            </section>
           ))}
         </div>
         <LoadMore></LoadMore>

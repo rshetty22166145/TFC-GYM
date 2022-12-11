@@ -61,7 +61,10 @@ class StudioDetailView(APIView):
                     dictionary['students'] = newlst
                     lst.append(dictionary)
                 # lst.append(model_to_dict(event))
-        sorted_list = sorted(lst, key=lambda elem: (datetime.strptime(str(elem['day']), '%Y-%m-%d'), elem['start_time']))
+        for image in studio.images.all():
+            print(image.image)
+        sorted_list = sorted(lst,
+                             key=lambda elem: (datetime.strptime(str(elem['day']), '%Y-%m-%d'), elem['start_time']))
         print(lst2)
         return Response({
             'id': studio.id,
@@ -74,6 +77,16 @@ class StudioDetailView(APIView):
             'classes': lst2,
             'schedules': sorted_list
         })
+
+
+class StudioDetailView2(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = GeoLocationSerializer
+    model = Studio
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(id=self.kwargs['studio_id'])
+        return queryset
 
 
 class StudioListView(ListAPIView):

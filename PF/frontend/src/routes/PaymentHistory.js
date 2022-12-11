@@ -8,9 +8,10 @@ import NavBar from '../components/NavBar';
 function PaymentHistoryView(){
     const [data, setData] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [next, setNext] = useState(null);
 
     useEffect(() => {
-        getUser();
+        getData();
     }, [])
 
     useEffect(() => {
@@ -22,7 +23,32 @@ function PaymentHistoryView(){
         console.log(loaded);
     }, [loaded])
 
-    const getUser = async () => {
+    useEffect(() => {
+        console.log("next url:" + next);
+      }, [next])
+
+    const getNextList = (e) => {
+        e.preventDefault();
+        const getNextData = async() => {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const response = await axios.get(next,
+                {
+                    headers: { 
+                        'Content-Type': 'application/json' ,
+                        'Authorization': `token ${token}`
+                    },
+                    withCredentials: true
+                }
+            );
+            setData((prev) => [...prev,...response.data.results]);
+            setNext(response.data.next);
+            setLoaded(true);
+        }
+        getNextData();
+      }
+
+    const getData = async () => {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('username');
         const response = await axios.get(`http://localhost:8000/payments/${username}/`,
@@ -35,7 +61,8 @@ function PaymentHistoryView(){
             }
         );
         console.log(response.data);
-        setData(response.data);
+        setData(response.data.results);
+        setNext(response.data.next);
         setLoaded(true);
     }
 
@@ -44,14 +71,10 @@ function PaymentHistoryView(){
         if (loaded) {
             return (
                 <div>
-                    {data.results.map((data) => (
-                    <div className='card' key ={data.id}>
-                        <p>{data.id}</p>
-                        <p>{data.username}</p>
-                        <p>{data.pay_date}</p>
-                        <p>{data.cardnumber}</p>
-                        <p>{data.amount}</p>
-                        <p>{data.next_pay}</p>
+                    {data.map((data) => (
+                    <div className='card' key ={data.id} style={{margin:"20px"}}>
+                        <p>Payment date : {data.pay_date}</p>
+                        <p>Payment amount : ${data.amount}</p>
                     </div>
                     ))}
                 </div>
@@ -60,12 +83,24 @@ function PaymentHistoryView(){
         return null;
     }
 
+    function LoadMore() {
+        if (next === null) {
+          return null;
+        }
+        return (
+          <button onClick={getNextList}>
+            Load More
+          </button>
+        )
+      }
+
     return(
         <div>
             <NavBar></NavBar>
             <h1>Payment History</h1>
-            <div className='item-container'>
+            <div className='item-container' style={{textAlign:"center"}}>
                 <UserHistory></UserHistory>
+                <LoadMore></LoadMore>
             </div>
         </div>
     );

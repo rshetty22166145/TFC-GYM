@@ -9,6 +9,7 @@ import Register from './Register';
 import HomeProfile from './HomeProfile';
 import PasswordView from './Password';
 import SearchPage from "./routes/SearchPage";
+import PaymentHistoryView from "./routes/PaymentHistory";
 function App() {
   return (
     <Router>
@@ -24,6 +25,21 @@ function App() {
         </Route>
         <Route path="/accounts/edit">
           <ProfileView />
+        </Route>
+        <Route path="/accounts/password">
+          <PasswordView />
+        </Route>
+        <Route path="/accounts/payment/">
+          <PaymentHistoryView />
+        </Route>
+        <Route path="/accounts/class/schedule">
+          <PaymentHistoryView />
+        </Route>
+        <Route path="/accounts/class/history">
+          <PaymentHistoryView />
+        </Route>
+        <Route path="/profile">
+          <HomeProfile />
         </Route>
         <Route path="/studio/:id">
           <StudioDetail />
