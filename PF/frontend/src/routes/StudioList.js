@@ -10,6 +10,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import Geocode from "react-geocode";
+import NavBar from "../components/NavBar";
 
 Geocode.setApiKey("AIzaSyBFrZlgl056ecOfkIxxXBsSFPaFeVzDFYU");
 
@@ -32,6 +33,11 @@ function StudioList() {
     const [postalCode, setPostalCode] = useState("");
     const [next, setNext] = useState(null);
     const [nameList, setNameList] = useState([]);
+    const [search, setSearch] = useState("");
+    const [searchStudioName, setSearchStudioName] = useState(true);
+    const [searchClassName, setSearchClassName] = useState(true);
+    const [searchCoachName, setSearchCoachName] = useState(true);
+    const [searchAmentity, setSearchAmentity] = useState(true);
 
     useEffect(() => {
       const loadData = async() =>{
@@ -131,11 +137,6 @@ function StudioList() {
     }), [])
 
     function SearchBar({map}) {
-      const [search, setSearch] = useState("");
-      const [searchStudioName, setSearchStudioName] = useState(true);
-      const [searchClassName, setSearchClassName] = useState(true);
-      const [searchCoachName, setSearchCoachName] = useState(true);
-      const [searchAmentity, setSearchAmentity] = useState(true);
   
       useEffect(() => {
           console.log("trying to search :" + search)
@@ -249,7 +250,7 @@ function StudioList() {
 
     function LoadMore() {
       if (next === null) {
-        return <h2>End</h2>;
+        return null;
       }
       return (
         <button onClick={getNextList}>
@@ -260,35 +261,53 @@ function StudioList() {
 
     return (
       <div>
-        <div id="mapid1" style={{height: 300}}>
-        <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: '300px', width: '500px' }} ref={setMap} whenCreated={setMap}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={position} draggable={true} eventHandlers={eventHandlers} id="marker">
-            <Popup>
-              You
-            </Popup>
-          </Marker>
-          {markers.map((position, idx) => 
-            <Marker key={`marker-${idx}`} position={position}>
-              <Popup>
-                <span>{nameList[idx]}</span>
-              </Popup>
-            </Marker>
-          )}
-        </MapContainer>
+        <NavBar></NavBar>
+        <br></br><br></br>
+        <div>
+          <div id="mapid1" 
+            style={{
+              height: 300,
+            }}
+          >
+            <MapContainer 
+              center={position} zoom={13} 
+              scrollWheelZoom={true} 
+              style={{ 
+                height: '300px', 
+                width: '500px',
+                fontSize: '15px'
+              }} 
+              ref={setMap} 
+              whenCreated={setMap}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position} draggable={true} eventHandlers={eventHandlers} id="marker">
+                <Popup>
+                  You
+                </Popup>
+              </Marker>
+              {markers.map((position, idx) => 
+                <Marker key={`marker-${idx}`} position={position}>
+                  <Popup>
+                    <span>{nameList[idx]}</span>
+                  </Popup>
+                </Marker>
+              )}
+            </MapContainer>
+          </div>
+          <input onChange={onChange}></input>
+          <button onClick={getGeoLocation}>
+            Move to address/postal code
+          </button>
+          <SearchBar map={map}></SearchBar>
+          <br></br>
+          <button onClick={getList}>
+            Get List
+          </button>
         </div>
-        <input onChange={onChange}></input>
-        <button onClick={getGeoLocation}>
-          Move to address/postal code
-        </button>
-        <SearchBar map={map}></SearchBar>
-        <br></br>
-        <button onClick={getList}>
-          Get List
-        </button>
         <div>
           {studios.map((studio) => (
             <Studio
