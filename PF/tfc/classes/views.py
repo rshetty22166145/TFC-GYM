@@ -30,8 +30,10 @@ class ClassDetailView(APIView):
                 newlst.append(student.username)
             dictionary['students'] = newlst
             lst.append(dictionary)
+        studio = {"id": cla.studio.id, "name": cla.studio.name}
         return Response({
             'id': cla.id,
+            'studio': studio,
             'name': cla.name,
             'description': cla.description,
             'coach': cla.coach,

@@ -10,6 +10,8 @@ import HomeProfile from './HomeProfile';
 import PasswordView from './Password';
 import SearchPage from "./routes/SearchPage";
 import PaymentHistoryView from "./routes/PaymentHistory";
+import ClassDetail from "./routes/ClassDetail";
+import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
 function App() {
   return (
     <Router>
@@ -46,6 +48,12 @@ function App() {
         </Route>
         <Route path="/studio">
           <StudioList />
+        </Route>
+        <Route path="/class/:id">
+          <ClassDetail />
+        </Route>
+        <Route path="/subscribe">
+          <CreateSubscriptionPlan />
         </Route>
         <Route path="/">
           <Home />

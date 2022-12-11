@@ -6,6 +6,7 @@ from rest_framework.validators import UniqueValidator
 
 from accounts.forms import RegisterForm
 from accounts.models import UserProfile
+from classes.models import Event
 from subscriptions.models import UserSubscription
 
 
@@ -44,6 +45,16 @@ class SignupSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     subscribe = serializers.SerializerMethodField()
+    enrolled_events = serializers.SerializerMethodField()
+
+    def get_enrolled_events(self, obj):
+        print(obj)
+        events = Event.objects.filter(students__in=[obj])
+        lst = []
+        for event in events:
+            lst.append(event.id)
+        print(events)
+        return lst
 
     def get_subscribe(self, obj):
         user_subscription = UserSubscription.objects.filter(user=obj)
@@ -54,8 +65,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["username",  "password", "first_name", "last_name", "email", "phone_number", "avatar", "subscribe"]
-        read_only_fields = ["username", "subscribe"]  # we can also specify a list of fields to be read only (not editable)
+        fields = ["username",  "password", "first_name", "last_name", "email", "phone_number", "avatar", "subscribe", "enrolled_events"]
+        read_only_fields = ["username", "subscribe", "enrolled_events"]
         extra_kwargs = {
             'password': {'write_only': True, 'required': False},
             'avatar': {'required': False}

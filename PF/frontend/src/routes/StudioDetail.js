@@ -233,7 +233,7 @@ function StudioDetail() {
             return (
                 <div style={{color:"white"}}>
                     {data.map((data) => (
-                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px"}}>
+                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", height:"300px", width:"500px"}}>
                             <h4>Class name : {data.classes.name}</h4>
                             Coach : {data.classes.coach}
                             <br></br>
@@ -264,7 +264,7 @@ function StudioDetail() {
     }
 
     return (
-        <div style={{textAlign:"center", alignItems:"center"}}>
+        <div style={{textAlign:"center", alignItems:"center", width:"100vh"}}>
             <NavBar></NavBar>
             <div style={{marginTop:"150px"}}>
                 <CarouselImage></CarouselImage>

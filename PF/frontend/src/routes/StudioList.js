@@ -258,7 +258,7 @@ function StudioList() {
             </MapContainer>
           </div>
           <section class="outer" style={{marginTop:"30px", marginBottom:"30px"}}>
-            <input onChange={onChange}></input>
+            <input onChange={onChange} placeholder="Enter address/postal code"></input>
             <button onClick={getGeoLocation}>
               Move to address/postal code
             </button>
@@ -268,6 +268,7 @@ function StudioList() {
             <br></br>
             <input 
               value={search} 
+              placeholder="Search"
               onChange={(e) => setSearch(e.target.value)}
             />
             <button onClick={handleSearch}>

@@ -67,5 +67,5 @@ class UserPaymentsViewSerializer(serializers.ModelSerializer):
 class SubscriptionPlansViewSerializer(serializers.ModelSerializer):
     class Meta:
         model=SubcriptionPlan
-        fields=["name","price","plan"]
+        fields=["id","name","price","plan"]
 
