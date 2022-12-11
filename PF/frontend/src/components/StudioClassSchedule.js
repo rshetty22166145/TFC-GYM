@@ -1,31 +1,91 @@
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import {useParams} from 'react-router-dom';
-import axios from '../api/axios';
 
-function FetchClasses(){
-    const [classes, setClasses] = useState({});
+function ClassesView(){
+    const [data, setData] = useState(null);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        axios
-        .get(`http://localhost:8000/studios/${id}`)
-        .then((res) => {
-            console.log(res)
-            setClasses(res.data)
-    })
-    .catch((err) => {
-    console.log(err);
-    }, [id])
+        getUser();
+    }, [])
+
+    useEffect(() => {
+        console.log("data changed");
+        console.log(data);
+    }, [data])
+
+    useEffect(() => {
+        console.log(loaded);
+    }, [loaded])
+
+    const getUser = async () => {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+        const response = await axios.get(`/api/accounts/${username}/schedule/`,
+            {
+                headers: { 
+                    'Content-Type': 'application/json' ,
+                    'Authorization': `token ${token}`
+                },
+                withCredentials: true
+            }
+        );
+        console.log(response.data);
+        setData(response.data);
+        setLoaded(true);
+    }
+
+    function StudioClasses() {
+        console.log(loaded);
+        if (loaded) {
+            return (
+                <div>
+                    {data.results.map((data) => (
+                    <div className='card' key ={data.id}>
+                        <p>{data.studio}</p>
+                    </div>
+                    ))}
+                </div>
+            )
+        }
+        return null;
+    }
 
     return(
         <div>
+            <NavBar></NavBar>
             <h1>Available Classes</h1>
-            <div>{classes.id}</div>
+            <div className='item-container'>
+                <StudioClasses></StudioClasses>
+            </div>
         </div>
-    )
-})
+    );
+}
 
-export default Classes;
+export default ClassesView;
+
+// function FetchClasses(){
+//     const [classes, setClasses] = useState({});
+
+//     useEffect(() => {
+//         axios
+//         .get(`http://localhost:8000/studios/${id}`)
+//         .then((res) => {
+//             console.log(res)
+//             setClasses(res.data)
+//     })
+//     .catch((err) => {
+//     console.log(err);
+//     }, [id])
+
+//     return(
+//         <div>
+//             <h1>Available Classes</h1>
+//             <div>{classes.id}</div>
+//         </div>
+//     )
+// })
+
+// export default Classes;
 // const Classes = () => {
 //     const [classes, setClasses] = useState([]);
 //     const [id, setId] = useState(1);
