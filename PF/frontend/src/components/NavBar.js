@@ -18,19 +18,19 @@ function NavBar() {
 
     if (loggedIn) {
         return (
-            <div style={{all: "revert"}}>
-                <ul>
+            <div>
+                <ul className="navbar">
                     <li><Link to={`/`}><i className="fa fa-fw fa-home"></i>Home</Link></li>
                     <li><Link to={`/studio`}><i className="fa fa-fw fa-search"></i>Studio</Link></li>
-                    <li><Link to={`/somewhere`}>Contact</Link></li>
-                    <li><Link to={`/somewhere`}>About</Link></li>
+                    <li><Link to={`/somewhere`}><i className="fa fa-fw fa-book"></i>Plan</Link></li>
                     <li style={{float:"right"}}>
                         <Link to={`/logout`}>
                         Logout
                         </Link>
                     </li>
                     <li style={{float:"right"}}>
-                        <Link>
+                        <Link to={`/profile`}>
+                        <i className="fa fa-fw fa-user"></i>
                         Profile
                         </Link>
                     </li>
@@ -41,11 +41,10 @@ function NavBar() {
 
     return (
         <div>
-            <ul>
-                <li><Link to={`/somewhere`}>Plan</Link></li>
-                <li><Link to={`/somewhere`}>Hello {localStorage.getItem("username")}</Link></li>
-                <li><Link to={`/somewhere`}>Contact</Link></li>
-                <li><Link to={`/somewhere`}>About</Link></li>
+            <ul className="navbar">
+                <li><Link to={`/`}><i className="fa fa-fw fa-home"></i>Home</Link></li>
+                <li><Link to={`/studio`}><i className="fa fa-fw fa-search"></i>Studio</Link></li>
+                <li><Link to={`/somewhere`}><i className="fa fa-fw fa-book"></i>Plan</Link></li>
                 <li style={{float:"right"}}><Link to={`/register`}>Register</Link></li>
                 <li style={{float:"right"}}><Link to={`/login`}>Log in</Link></li>
             </ul>

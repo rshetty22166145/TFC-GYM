@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
+import NavBar from "./components/NavBar";
 
 //regex checks
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -136,12 +137,14 @@ function ProfileView() {
     return (
         <>
             {success ? (
-                <section class="outer">
-                    <h1 class="prompt">Profile Edited!</h1>
-                    <p>
-                        <a href="http://localhost:3000/"> Go Back Home!</a>
-                    </p>
-                </section>
+                <div>
+                    <section class="outer">
+                        <h1 class="prompt">Profile Edited!</h1>
+                        <p>
+                            <a href="http://localhost:3000/"> Go Back Home!</a>
+                        </p>
+                    </section>
+                </div>
             ) : (
                 <section class="outer">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>

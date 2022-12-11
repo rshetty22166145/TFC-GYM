@@ -54,6 +54,10 @@ a, a:visited {
     color: #fff;
 }
 
+.leaflet-container a {
+    color: black;
+}
+
 input[type="text"],
 input[type="password"],
 button,
@@ -72,6 +76,10 @@ button {
 
 button {
   padding: 0.5rem;
+}
+
+#mapid1 {
+    color: red;
 }
 
 #mapid1 button {
