@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../api/axios';
 
 //when user tries to go to url for creating subscription, try get http://127.0.0.1:8000/api/subscriptions/username/ if we get 404 not found from the request allow user to create subcription
 
 //What happens when user already has a subscription?
 //Have to check if subscription ID exists
-//Check to see if this works
+
 
 const SUBSCRIPTON_PLAN_REGEX = /^\d+$/;
 const CARDNUMBER_REGEX = /^\d{16}$/;

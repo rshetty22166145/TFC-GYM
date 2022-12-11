@@ -10,6 +10,17 @@ const EXPIRY_REGEX = /^\d{4}$/;
 const CVV_REGEX = /^\d{3}$/;
 const SUBSCRIPTION_URL = 'http://localhost:8000/api/subscriptions/'
 
+    function deleteSubscription(){
+        fetch(`http://localhost:8000/subscriptions/${username}`, {
+            method: 'DELETE'
+        }).then((result) => {
+            result.json().then((response) => {
+                console.warn(response)
+                getUserInformation()
+            })
+        })
+    }
+
 const UpdateSubscription = () => {
 
     const [curr_plan, setCurr_plan] = useState('');
@@ -300,10 +311,6 @@ export default UpdateSubscription;
 //     )
 
 
-
-// //fetch vs axios get
-// //using parameters 
-// //parent 
 
 
 
