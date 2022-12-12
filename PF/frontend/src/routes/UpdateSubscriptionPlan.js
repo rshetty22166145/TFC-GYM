@@ -49,9 +49,10 @@ function SubscriptionDetail(){
     }, [subscriber])
 
 
-    useEffect(() => (
+    useEffect(() => {
+        console.log("data incoming");
         console.log(data)
-    ), [data])
+    }, [data])
 
     const getUserSubscriptionData = async () => {
         const token = localStorage.getItem('token');
@@ -65,8 +66,9 @@ function SubscriptionDetail(){
                 withCredentials: true
             }
         );
+        console.log("response")
         console.log(response.data);
-        setData(response.data.results);
+        setData(response.data);
         setLoaded(true);
     }
     
@@ -74,9 +76,8 @@ function SubscriptionDetail(){
         if(loaded){
             return(
                 <div>
-                    {data.map((data) => (
                     <div className='card' key ={data.id} style={{margin:"20px"}}>
-                        <h2>Subscription Plan Details</h2><br></br>
+                    <h2>Subscription Plan Details</h2><br></br>
                     <h3>Current Plan: {data.curr_plan}</h3><br></br>
                     <h3>Renewal Option: {data.renew}</h3><br></br>
                     <h3>Next Payment: {data.next_pay}</h3><br></br>
@@ -85,7 +86,6 @@ function SubscriptionDetail(){
                     <h3>Expiry Date: {data.expiry}</h3>
                     <h3>CVV: {data.cvv}</h3>
                     </div>
-                    ))}
                 </div>
             )
         }
