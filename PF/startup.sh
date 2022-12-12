@@ -12,4 +12,4 @@ chmod u+rwx manage.py
 cd ..
 cd frontend
 npm install
-cd..
+cd ..
