@@ -243,73 +243,79 @@ function ClassDetail(){
             return (
                 <div style={{color:"white"}}>
                     {data.map((data, idx) => (
-                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", height:"300px", width:"500px"}}>
+                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", minHeight:"0px", width:"500px"}}>
                             Date : {data.day}
                             <br></br>
                             Time : {data.start_time} ~ {data.end_time}
                             <br></br>
                             Capacity : {capacityArray[idx]}/{data.classes.capacity}
                             <br></br>
-                            <button onClick={
-                                (e) => {
-                                    e.preventDefault();
-                                    try {
-                                        const enrol = async() => {
-                                            const url = `http://127.0.0.1:8000/api/accounts/admin/enrol/`;
-                                            const token = localStorage.getItem("token");
-                                            const class_id = id;
-                                            const instance_id = data.id;
-                                            console.log(instance_id);
-                                            const response = await axios.post(url,
-                                                JSON.stringify({ class_id, instance_id }),
-                                                {
-                                                    headers: { 
-                                                        'Content-Type': 'application/json' ,
-                                                        'Authorization': `token ${token}`,
-                                                    },
-                                                    withCredentials: true
+                            { subscriber? (
+                                <div>
+                                    <button onClick={
+                                        (e) => {
+                                            e.preventDefault();
+                                            try {
+                                                const enrol = async() => {
+                                                    const url = `http://127.0.0.1:8000/api/accounts/admin/enrol/`;
+                                                    const token = localStorage.getItem("token");
+                                                    const class_id = id;
+                                                    const instance_id = data.id;
+                                                    console.log(instance_id);
+                                                    const response = await axios.post(url,
+                                                        JSON.stringify({ class_id, instance_id }),
+                                                        {
+                                                            headers: { 
+                                                                'Content-Type': 'application/json' ,
+                                                                'Authorization': `token ${token}`,
+                                                            },
+                                                            withCredentials: true
+                                                        }
+                                                    );
+                                                    console.log(response);
+                                                    loadCapacityArray();
                                                 }
-                                            );
-                                            console.log(response);
-                                            loadCapacityArray();
+                                                enrol();
+                                                console.log("enrolled");
+                                            } catch (err) {
+                                                console.log("you are not subscriber");
+                                            }
                                         }
-                                        enrol();
-                                        console.log("enrolled");
-                                    } catch (err) {
-                                        console.log("you are not subscriber");
-                                    }
-                                }
-                            }>Enrol</button>
-                            <button onClick={
-                                (e) => {
-                                    e.preventDefault();
-                                    try {
-                                        const drop = async() => {
-                                            const url = `http://127.0.0.1:8000/api/accounts/admin/drop/`;
-                                            const token = localStorage.getItem("token");
-                                            const class_id = id;
-                                            const instance_id = data.id;
-                                            console.log(instance_id);
-                                            const response = await axios.post(url,
-                                                JSON.stringify({ class_id, instance_id }),
-                                                {
-                                                    headers: { 
-                                                        'Content-Type': 'application/json' ,
-                                                        'Authorization': `token ${token}`,
-                                                    },
-                                                    withCredentials: true
+                                    }>Enrol</button>
+                                    <button onClick={
+                                        (e) => {
+                                            e.preventDefault();
+                                            try {
+                                                const drop = async() => {
+                                                    const url = `http://127.0.0.1:8000/api/accounts/admin/drop/`;
+                                                    const token = localStorage.getItem("token");
+                                                    const class_id = id;
+                                                    const instance_id = data.id;
+                                                    console.log(instance_id);
+                                                    const response = await axios.post(url,
+                                                        JSON.stringify({ class_id, instance_id }),
+                                                        {
+                                                            headers: { 
+                                                                'Content-Type': 'application/json' ,
+                                                                'Authorization': `token ${token}`,
+                                                            },
+                                                            withCredentials: true
+                                                        }
+                                                    );
+                                                    console.log(response);
+                                                    loadCapacityArray();
                                                 }
-                                            );
-                                            console.log(response);
-                                            loadCapacityArray();
+                                                drop();
+                                                console.log("dropped");
+                                            } catch (err) {
+                                                console.log("you are not subscriber");
+                                            }
                                         }
-                                        drop();
-                                        console.log("dropped");
-                                    } catch (err) {
-                                        console.log("you are not subscriber");
-                                    }
-                                }
-                            }>Drop</button>
+                                    }>Drop</button>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )}
                         </section>
                     ))}
                 </div>
@@ -344,7 +350,7 @@ function ClassDetail(){
     }
 
     return(
-        <div>
+        <div style={{textAlign:"center", alignItems:"center"}}>
             <NavBar></NavBar>
             <ClassInfo></ClassInfo>
             <ClassEnrol></ClassEnrol>

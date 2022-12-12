@@ -233,7 +233,7 @@ function StudioDetail() {
             return (
                 <div style={{color:"white"}}>
                     {data.map((data) => (
-                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", height:"300px", width:"500px"}}>
+                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", minHeight:"0px", width:"500px"}}>
                             <h4>Class name : {data.classes.name}</h4>
                             Coach : {data.classes.coach}
                             <br></br>
@@ -277,7 +277,7 @@ function StudioDetail() {
             <ClassBlock></ClassBlock>
             <br></br>
             <h3>Studio Schedules</h3>
-            <section class="outer" style={{width: "500px", color: "black", background: "white", marginBottom: "50px"}}>
+            <section class="outer" style={{width: "500px", color: "black", background: "white", marginBottom: "50px", minHeight: "0px"}}>
                 <h4>Start Date</h4>
                 <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 <h4>End Date</h4>

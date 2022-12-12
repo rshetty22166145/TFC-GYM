@@ -99,9 +99,7 @@ function SubscriptionDetail(){
                     const username = localStorage.getItem("username");
                     const url = `http://localhost:8000/api/subscriptions/${username}/`;
                     const token = localStorage.getItem("token");
-                    const usersubscription_id = id;
                     const response = await axios.delete(url,
-                        JSON.stringify({ usersubscription_id }),
                         {
                             headers: { 
                                 'Content-Type': 'application/json' ,
