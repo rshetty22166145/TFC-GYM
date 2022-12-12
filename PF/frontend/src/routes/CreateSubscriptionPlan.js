@@ -115,6 +115,8 @@ function CreateSubscriptionPlan(){
     return (
         <div>
             <NavBar></NavBar>
+            <br></br>
+            <br></br>
             <section class="outer">
                 <h1 class="prompt"> Subscribe to a Plan</h1>
                 <form class="basicform">

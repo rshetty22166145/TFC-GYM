@@ -8,16 +8,16 @@ export default function HomeProfile(){
             <NavBar></NavBar>
             <section class="outer">
             <h1 class="prompt">Profile Options:</h1>
-            <p>
-                1.<Link to={`/accounts/edit`}>Edit Profile</Link>
+            <p class="left">
+                <Link to={`/accounts/edit`}>1. Edit Profile</Link>
                 <br></br>
-                2.<Link to={`/accounts/password`}>Change Password</Link>
+                <Link to={`/accounts/password`}>2. Change Password</Link>
                 <br></br>
-                3.<Link to={`/accounts/payment`}>Payment History</Link>
+                <Link to={`/accounts/payment`}>3. Payment History</Link>
                 <br></br>
-                4.<Link to={`/accounts/class/schedule`}>Class Schedule</Link>
+                <Link to={`/accounts/class/schedule`}>4. Class Schedule</Link>
                 <br></br>
-                5.<Link to={`/accounts/class/history`}>Class History</Link>
+                <Link to={`/accounts/class/history`}>5. Class History</Link>
             </p>
             </section>
         </div>

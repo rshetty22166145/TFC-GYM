@@ -27,6 +27,11 @@ body {
   padding: 1rem 0.5rem;
 }
 
+.left{
+    margin-right: auto;  
+    margin-left: 0;    
+}
+
 .outer {
     width: 100%;
     min-height: 400px;

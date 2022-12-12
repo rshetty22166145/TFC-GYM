@@ -22,7 +22,7 @@ function NavBar() {
                 <ul className="navbar">
                     <li><Link to={`/`}><i className="fa fa-fw fa-home"></i>Home</Link></li>
                     <li><Link to={`/studio`}><i className="fa fa-fw fa-search"></i>Studio</Link></li>
-                    <li><Link to={`/somewhere`}><i className="fa fa-fw fa-book"></i>Plan</Link></li>
+                    <li><Link to={`/preview`}><i className="fa fa-fw fa-book"></i>Plan</Link></li>
                     <li style={{float:"right"}}>
                         <Link to={`/logout`}>
                         Logout

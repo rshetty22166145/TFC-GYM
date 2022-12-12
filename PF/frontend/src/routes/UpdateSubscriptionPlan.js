@@ -152,6 +152,8 @@ function SubscriptionDetail(){
     return(
         <div>
             <NavBar></NavBar>
+            <br></br>
+            <br></br>
             <section class="outer">
             <UserSubscriptonInfo></UserSubscriptonInfo>
             <CancelSubscription></CancelSubscription>

@@ -14,6 +14,7 @@ import ClassDetail from "./routes/ClassDetail";
 import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
 import SubscriptionDetail from "./routes/UpdateSubscriptionPlan";
 import EditSubscriptionPlan from "./routes/EditSubscription";
+import ShowSubscriptionPlans from "./routes/ShowSubscriptionPlans";
 function App() {
   return (
     <Router>
@@ -56,6 +57,9 @@ function App() {
         </Route>
         <Route path="/subscribe">
           <CreateSubscriptionPlan />
+        </Route>
+        <Route path="/preview">
+          <ShowSubscriptionPlans />
         </Route>
         <Route path="/accounts/subscription/edit">
           <EditSubscriptionPlan />
