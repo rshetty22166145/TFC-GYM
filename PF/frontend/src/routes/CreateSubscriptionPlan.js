@@ -225,15 +225,4 @@ function CreateSubscriptionPlan(){
     )
 }
 
-//     return(
-//         <div>
-//             <NavBar></NavBar>
-//             <h1>Available Subscription Plans</h1>
-//             <div className='item-container'>
-//                 <CreateSubscriptionPlan></CreateSubscriptionPlan>
-//             </div>
-//         </div>
-//     );
-// }
-
 export default CreateSubscriptionPlan;

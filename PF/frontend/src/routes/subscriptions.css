@@ -58,6 +58,11 @@ a, a:visited {
     color: #fff;
 }
 
+.left{
+    margin-right: auto;  
+    margin-left: 0;    
+}
+
 .leaflet-container a {
     color: black;
 }

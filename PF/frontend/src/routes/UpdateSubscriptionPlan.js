@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from '../api/axios';
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import './subscriptions.css';
 
 function SubscriptionDetail(){
     const [loaded, setLoaded] = useState(false);
@@ -71,27 +74,41 @@ function SubscriptionDetail(){
         setData(response.data);
         setLoaded(true);
     }
+
+    function Redirect(){
+        return <Redirect to='/' />
+    }
     
     function UserSubscriptonInfo(){
         if(loaded){
             return(
-                <div>
-                    <div className='card' key ={data.id} style={{margin:"20px"}}>
-                    <h2>Subscription Plan Details</h2><br></br>
-                    <h3>Current Plan: {data.curr_plan}</h3><br></br>
-                    <h3>Renewal Option: {data.renew}</h3><br></br>
-                    <h3>Last Payment: {data.last_paid}</h3><br></br>
-                    <h3>Subscription End Date: {data.next_pay}</h3><br></br>
-                    <h2>Payment Information</h2><br></br>
-                    <h3>Card Number: {data.cardnumber}</h3>
-                    <h3>Expiry Date: {data.expiry}</h3>
-                    <h3>CVV: {data.cvv}</h3>
-                    </div>
-                </div>
+                <section>
+                <h1 class="prompt left">Subscription Plan Details</h1>
+                <form class="basicform" key ={data.id}>
+                    {/* <div className='card' key ={data.id} style={{margin:"20px"}}> */}
+                    <div class="left">Current Plan: {data.curr_plan.name}<br></br>
+                    Renewal Option:{
+                        data.renew ? (
+                            <FontAwesomeIcon icon={faCheck}/>
+                        ):(
+                            <FontAwesomeIcon icon={faTimes}/>
+                        )}
+                    <br></br>
+                    Last Payment: {data.last_paid}<br></br>
+                    Subscription End Date: {data.next_pay}</div>
+                    <br></br>
+                    <h1 class="prompt left">Payment Information</h1>
+                    <div class="left">Card Number: {data.cardnumber}<br></br>
+                    Expiry Date: {data.expiry}<br></br>
+                    CVV: {data.cvv}</div>
+                    {/* </div> */}
+                </form>
+                </section>
             )
         }
         return null;
     }
+
     function CancelSubscription(){
         const handleCancel = (e) => {
             e.preventDefault();
@@ -130,8 +147,10 @@ function SubscriptionDetail(){
     return(
         <div>
             <NavBar></NavBar>
+            <section class="outer">
             <UserSubscriptonInfo></UserSubscriptonInfo>
             <CancelSubscription></CancelSubscription>
+            </section>
         </div>
     )
 
