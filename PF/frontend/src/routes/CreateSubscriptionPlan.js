@@ -62,7 +62,7 @@ function CreateSubscriptionPlan(){
 
     const getPlans = async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:8000/plans/`,
+        const response = await axios.get(`http://localhost:8000/plans/?limit=5000`,
             {
                 headers: { 
                     'Content-Type': 'application/json' ,
@@ -84,6 +84,7 @@ function CreateSubscriptionPlan(){
             formData.append('cardnumber', cardnumber);
             formData.append('expiry', expiry)
             formData.append('cvv', cvv);
+            formData.append('renew', true);
             // Display the key/value pairs
             for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]); 
@@ -203,16 +204,6 @@ function CreateSubscriptionPlan(){
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Please enter a valid CVV.<br />
                         </p>
-                        <br></br>
-                        <div class="checkbox">
-                        <label htmlFor="renew">Set Recurring Payments</label>
-                        <input
-                        type="checkbox"
-                        id="renew"
-                        value={renew}
-                        onChange={(e) => setRenew(!renew)}>
-                        </input>
-                        </div>
                         <br></br>
                         <button onClick={handleSubmit} >Submit</button>
                     </div>

@@ -37,8 +37,8 @@ urlpatterns = [
     # api urls
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("api/", include(router.urls)),  # ADDITION: include the api urls
-    path("api/accounts/<str:username>/schedule/", accounts_views.AccountsScheduleView.as_view()),
-    path("api/accounts/<str:username>/history/",  accounts_views.AccountsHistoryView.as_view()),
+    path("api/accounts/<str:username>/schedule/", accounts_views.AccountsSchedulePageView.as_view()),
+    path("api/accounts/<str:username>/history/",  accounts_views.AccountsHistoryPageView.as_view()),
     path("api/accounts/<str:username>/enrol/",  accounts_views.AccountsClassEnrolView.as_view()),
     path("api/accounts/<str:username>/drop/",  accounts_views.AccountsClassDropView.as_view()),
     path("studios/", studio_views.StudioListView.as_view(), name='studio_all'),

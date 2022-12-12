@@ -76,10 +76,6 @@ function SubscriptionDetail(){
         setData(response.data);
         setLoaded(true);
     }
-
-    function Redirect(){
-        return <Redirect to='/' />
-    }
     
     function UserSubscriptonInfo(){
         if(loaded){
@@ -89,15 +85,15 @@ function SubscriptionDetail(){
                 <form class="basicform" key ={data.id}>
                     {/* <div className='card' key ={data.id} style={{margin:"20px"}}> */}
                     <div class="left">Current Plan: {data.curr_plan.name}<br></br>
-                    Renewal Option:{
-                        data.renew ? (
-                            <FontAwesomeIcon icon={faCheck}/>
-                        ):(
-                            <FontAwesomeIcon icon={faTimes}/>
-                        )}
-                    <br></br>
                     Last Payment: {data.last_paid}<br></br>
-                    Subscription End Date: {data.next_pay}</div>
+                    Subscription End Date: {data.next_pay}<br></br>
+                    Renewal:{
+                        data.renew ? (
+                            <FontAwesomeIcon icon={faCheck} style={{marginLeft:"5px"}}/>
+                        ):(
+                            <FontAwesomeIcon icon={faTimes} style={{marginLeft:"5px"}}/>
+                        )}
+                    </div>
                     <br></br>
                     <h1 class="prompt left">Payment Information</h1>
                     <div class="left">Card Number: {data.cardnumber}<br></br>
@@ -115,11 +111,17 @@ function SubscriptionDetail(){
         const handleCancel = (e) => {
             e.preventDefault();
             try {
-                const cancel = async() => {
+                const renew = async() => {
                     const username = localStorage.getItem("username");
                     const url = `http://localhost:8000/api/subscriptions/${username}/`;
                     const token = localStorage.getItem("token");
-                    const response = await axios.delete(url,
+                    const formData = new FormData(); 
+                    formData.append('curr_plan', Number(data.curr_plan.id));
+                    formData.append('cardnumber', data.cardnumber);
+                    formData.append('expiry', data.expiry)
+                    formData.append('cvv', data.cvv);
+                    formData.append('renew', false)
+                    const response = await axios.put(url, formData,
                         {
                             headers: { 
                                 'Content-Type': 'application/json' ,
@@ -129,9 +131,10 @@ function SubscriptionDetail(){
                         }
                     );
                     console.log(response);
+                    getUserSubscriptionData();
                 }
-                cancel();
-                console.log("Subscription plan cancelled");
+                renew();
+                console.log("Subscription plan now renew");
             } catch (err) {
                 console.log("you are not subscriber");
             }
@@ -149,12 +152,61 @@ function SubscriptionDetail(){
         return null;
     }
 
+    function RenewSubscription(){
+        const handleCancel = (e) => {
+            e.preventDefault();
+            try {
+                const renew = async() => {
+                    const username = localStorage.getItem("username");
+                    const url = `http://localhost:8000/api/subscriptions/${username}/`;
+                    const token = localStorage.getItem("token");
+                    const formData = new FormData(); 
+                    formData.append('curr_plan', Number(data.curr_plan.id));
+                    formData.append('cardnumber', data.cardnumber);
+                    formData.append('expiry', data.expiry)
+                    formData.append('cvv', data.cvv);
+                    formData.append('renew', true)
+                    const response = await axios.put(url, formData,
+                        {
+                            headers: { 
+                                'Content-Type': 'application/json' ,
+                                'Authorization': `token ${token}`,
+                            },
+                            withCredentials: true
+                        }
+                    );
+                    console.log(response);
+                    getUserSubscriptionData();
+                }
+                renew();
+                console.log("Subscription plan now renew");
+            } catch (err) {
+                console.log("you are not subscriber");
+            }
+        }
+        if (subscriber){
+            return (
+                <div>
+                    <button onClick={(e) => {
+                        history.push(`/accounts/subscription/edit`)
+                    }}>Edit Subscription</button>
+                    <button onClick={handleCancel}>Restart Subscription</button>
+                </div>
+            )
+        }
+        return null;
+    }
+
     return(
         <div>
             <NavBar></NavBar>
             <section class="outer">
             <UserSubscriptonInfo></UserSubscriptonInfo>
-            <CancelSubscription></CancelSubscription>
+            { data.renew ? (
+                <CancelSubscription></CancelSubscription>
+            ):(
+                <RenewSubscription></RenewSubscription>
+            )}
             </section>
         </div>
     )

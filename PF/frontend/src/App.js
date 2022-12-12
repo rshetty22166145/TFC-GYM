@@ -14,6 +14,8 @@ import ClassDetail from "./routes/ClassDetail";
 import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
 import SubscriptionDetail from "./routes/UpdateSubscriptionPlan";
 import EditSubscriptionPlan from "./routes/EditSubscription";
+import UserClassHistory from "./routes/UserClassHistory";
+import UserClassSchedule from "./routes/UserClassSchedules";
 function App() {
   return (
     <Router>
@@ -37,10 +39,10 @@ function App() {
           <PaymentHistoryView />
         </Route>
         <Route path="/accounts/class/schedule">
-          <PaymentHistoryView />
+          <UserClassSchedule />
         </Route>
         <Route path="/accounts/class/history">
-          <PaymentHistoryView />
+          <UserClassHistory />
         </Route>
         <Route path="/profile">
           <HomeProfile />
