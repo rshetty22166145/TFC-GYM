@@ -13,6 +13,7 @@ import PaymentHistoryView from "./routes/PaymentHistory";
 import ClassDetail from "./routes/ClassDetail";
 import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
 import SubscriptionDetail from "./routes/UpdateSubscriptionPlan";
+import EditSubscriptionPlan from "./routes/EditSubscription";
 function App() {
   return (
     <Router>
@@ -56,7 +57,10 @@ function App() {
         <Route path="/subscribe">
           <CreateSubscriptionPlan />
         </Route>
-        <Route path="/updatesubscription">
+        <Route path="/accounts/subscription/edit">
+          <EditSubscriptionPlan />
+        </Route>
+        <Route path="/accounts/subscription">
           <SubscriptionDetail />
         </Route>
         <Route path="/">

@@ -65,6 +65,25 @@ class UserSubscriptionViewSerializer(serializers.ModelSerializer):
 
         return instance
 
+class UserSubscriptionEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=UserSubscription
+        fields = ["user","username","last_paid","next_pay","cardnumber","curr_plan" ,"renew","cvv","expiry"]
+        read_only_fields = ["user","username","pay_date","next_pay"]
+
+    def update(self, instance, validated_data):
+        print(validated_data.get('renew', instance.renew))
+        instance.user = validated_data.get('user', instance.user)
+        instance.username = validated_data.get('username', instance.username)
+        instance.last_paid = validated_data.get('last_paid', instance.last_paid)
+        instance.cardnumber = validated_data.get('cardnumber', instance.cardnumber)
+        instance.curr_plan = validated_data.get('curr_plan', instance.curr_plan)
+        instance.renew = validated_data.get('renew', instance.renew)
+        instance.cvv = validated_data.get('cvv', instance.cvv)
+        instance.expiry = validated_data.get('expiry', instance.expiry)
+        instance.save()
+
+        return instance
 
 class UserPaymentsViewSerializer(serializers.ModelSerializer):
     class Meta:

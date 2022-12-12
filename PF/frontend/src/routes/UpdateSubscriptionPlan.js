@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from '../api/axios';
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from 'react-router-dom';
 import './subscriptions.css';
 
 function SubscriptionDetail(){
@@ -13,6 +13,8 @@ function SubscriptionDetail(){
     const [data, setData] = useState([]);
     const { id } = useParams();
     const [subscriber, setSubscriber] = useState(false);
+    
+    let history = useHistory();
 
     useEffect(() => {
         getUserSubscriptionData();
@@ -137,6 +139,9 @@ function SubscriptionDetail(){
         if (subscriber){
             return (
                 <div>
+                    <button onClick={(e) => {
+                        history.push(`/accounts/subscription/edit`)
+                    }}>Edit Subscription</button>
                     <button onClick={handleCancel}>Cancel Subscription</button>
                 </div>
             )

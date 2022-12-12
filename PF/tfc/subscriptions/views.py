@@ -14,7 +14,8 @@ from rest_framework.response import Response
 from accounts.models import UserProfile
 from classes.models import Event
 from . import  permissions
-from subscriptions.serlializers import UserSubscriptionCreateSerializer ,   UserSubscriptionViewSerializer, UserPaymentsViewSerializer, SubscriptionPlansViewSerializer
+from subscriptions.serlializers import UserSubscriptionCreateSerializer, UserSubscriptionViewSerializer, \
+    UserPaymentsViewSerializer, SubscriptionPlansViewSerializer, UserSubscriptionEditSerializer
 from accounts.serializers import RestrictedUserSerializer
 import django
 from django.contrib.auth import get_user_model
@@ -44,10 +45,12 @@ class SubscriptionsAPIViewSet(
         print(self.action)
         if self.action == "create":
             return UserSubscriptionCreateSerializer
-        if self.action in ["retrieve", "update","destroy"]:
-            if "username" in self.request.parser_context["kwargs"] and\
+        if self.action in ["retrieve", "destroy"]:
+            if "username" in self.request.parser_context["kwargs"] and \
                     self.request.user.username == self.request.parser_context["kwargs"]["username"]:
-                    return UserSubscriptionViewSerializer
+                return UserSubscriptionViewSerializer
+        if self.action == "update":
+            return UserSubscriptionEditSerializer
         return RestrictedUserSerializer
     # we override this function to use different permissions for different actions
     def get_permissions(self):
