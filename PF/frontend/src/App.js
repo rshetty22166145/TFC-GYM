@@ -12,6 +12,7 @@ import SearchPage from "./routes/SearchPage";
 import PaymentHistoryView from "./routes/PaymentHistory";
 import ClassDetail from "./routes/ClassDetail";
 import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
+import SubscriptionDetail from "./routes/UpdateSubscriptionPlan";
 function App() {
   return (
     <Router>
@@ -54,6 +55,9 @@ function App() {
         </Route>
         <Route path="/subscribe">
           <CreateSubscriptionPlan />
+        </Route>
+        <Route path="/updatesubscription">
+          <SubscriptionDetail />
         </Route>
         <Route path="/">
           <Home />

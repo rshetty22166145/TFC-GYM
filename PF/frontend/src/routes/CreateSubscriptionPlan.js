@@ -3,7 +3,7 @@ import axios from '../api/axios';
 import NavBar from '../components/NavBar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import e from 'cors';
+import './subscriptions.css';
 
 const CARDNUMBER_REGEX = /^\d{16}$/;
 const EXPIRY_REGEX = /^\d{4}$/;
@@ -80,7 +80,7 @@ function CreateSubscriptionPlan(){
         e.preventDefault();
         try {
             const formData = new FormData(); 
-            formData.append('curr_plan', data.name);
+            formData.append('curr_plan', Number(curr_plan));
             formData.append('cardnumber', cardnumber);
             formData.append('expiry', expiry)
             formData.append('cvv', cvv);
@@ -88,10 +88,12 @@ function CreateSubscriptionPlan(){
             for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]); 
             }
-
+            const token = localStorage.getItem('token');
             const response = await axios.post(SUBSCRIPTION_URL, formData,
                 {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json',
+                    'Authorization': `token ${token}` 
+                },
                     withCredentials: true
                 }
             );
@@ -113,11 +115,11 @@ function CreateSubscriptionPlan(){
     return (
         <div>
             <NavBar></NavBar>
-            <section>
-                <h1>Subscribe to a Plan</h1>
-                <form onSubmit={handleSubmit}>
+            <section class="outer">
+                <h1 class="prompt"> Subscribe to a Plan</h1>
+                <form class="basicform">
                 <label htmlFor="curr_plan">
-                Select a Subscription Plan:
+                Complete the following form to subscribe:
                 <FontAwesomeIcon icon={faCheck} className={validCardnumber ? "valid" : "hide"} />
                 <FontAwesomeIcon icon={faTimes} className={validCardnumber || !cardnumber ? "hide" : "invalid"} />
                 </label>
@@ -133,7 +135,7 @@ function CreateSubscriptionPlan(){
                                     style={{marginRight:"10px"}}
                                 >
                                 </input>
-                                {data.plan} {data.name} {data.price}
+                                {data.name}: ${data.price} / {data.plan} 
                             </div>
                         ))}
                         <label htmlFor="cardnumber">
@@ -202,14 +204,17 @@ function CreateSubscriptionPlan(){
                             Please enter a valid CVV.<br />
                         </p>
                         <br></br>
-                        <label htmlFor="renew">Would you like recurring payments?</label>
+                        <div class="checkbox">
+                        <label htmlFor="renew">Set Recurring Payments</label>
                         <input
                         type="checkbox"
                         id="renew"
                         value={renew}
                         onChange={(e) => setRenew(!renew)}>
                         </input>
-                        <button>Submit</button>
+                        </div>
+                        <br></br>
+                        <button onClick={handleSubmit} >Submit</button>
                     </div>
                 ) : (
                     <div></div>
