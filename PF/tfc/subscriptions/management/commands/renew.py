@@ -35,4 +35,4 @@ class Command(BaseCommand):
                 event.students.remove(user)
             i += 1
             subscription.delete()
-        self.stdout.write(f"{i} non-subscribed users class bookings are cancelled.")
+        self.stdout.write(f"{i} non-subscribed users class bookings are cancelled and subscription deleted.")

@@ -14,7 +14,12 @@ import ClassDetail from "./routes/ClassDetail";
 import CreateSubscriptionPlan from "./routes/CreateSubscriptionPlan";
 import SubscriptionDetail from "./routes/UpdateSubscriptionPlan";
 import EditSubscriptionPlan from "./routes/EditSubscription";
+<<<<<<< HEAD
 import ShowSubscriptionPlans from "./routes/ShowSubscriptionPlans";
+=======
+import UserClassHistory from "./routes/UserClassHistory";
+import UserClassSchedule from "./routes/UserClassSchedules";
+>>>>>>> d64bf0424d6cc5fc4b2123e9f1c10e81965d7364
 function App() {
   return (
     <Router>
@@ -38,10 +43,10 @@ function App() {
           <PaymentHistoryView />
         </Route>
         <Route path="/accounts/class/schedule">
-          <PaymentHistoryView />
+          <UserClassSchedule />
         </Route>
         <Route path="/accounts/class/history">
-          <PaymentHistoryView />
+          <UserClassHistory />
         </Route>
         <Route path="/profile">
           <HomeProfile />

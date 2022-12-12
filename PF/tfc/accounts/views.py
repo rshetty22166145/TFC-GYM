@@ -10,6 +10,8 @@ from rest_framework import mixins as drf_mixins
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.authtoken import models
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny, BasePermission
 from rest_framework import serializers, permissions
 import django
@@ -20,6 +22,7 @@ from rest_framework.views import APIView
 from accounts.models import UserProfile
 from accounts.serializers import SignupSerializer, UserSerializer, RestrictedUserSerializer, EnrolSerializer
 from classes.models import Class, Event
+from classes.serializers import ClassSerializer
 from subscriptions.models import UserSubscription, UserPayments
 
 class IsSelfOrAdmin(BasePermission):
@@ -152,6 +155,38 @@ class AccountsScheduleView(APIView):
         return Response(sorted_list)
 
 
+class AccountsHistoryPageView(ListAPIView):
+    authentication_classes = [
+        SessionAuthentication,
+        TokenAuthentication,
+    ]
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ClassSerializer
+    model = Event
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = UserProfile.objects.get(username=username)
+        queryset = self.model.objects.filter(day__lt=datetime.now().date(), students__in=[user])
+        return queryset.order_by("day", "start_time")
+
+
+class AccountsSchedulePageView(ListAPIView):
+    authentication_classes = [
+        SessionAuthentication,
+        TokenAuthentication,
+    ]
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ClassSerializer
+    model = Event
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = UserProfile.objects.get(username=username)
+        queryset = self.model.objects.filter(day__gte=datetime.now().date(), students__in=[user])
+        return queryset.order_by("day", "start_time")
+
+
 class AccountsHistoryView(APIView):
     authentication_classes = [
         SessionAuthentication,
@@ -177,6 +212,8 @@ class AccountsHistoryView(APIView):
         sorted_list = sorted(lst,
                              key=lambda elem: (datetime.strptime(str(elem['day']), '%Y-%m-%d'), elem['start_time']))
         return Response(sorted_list)
+
+
 
 
 class AccountsClassEnrolView(APIView):
@@ -231,11 +268,17 @@ class AccountsClassDropView(APIView):
             if "instance_id" in serializer.validated_data.keys():
                 instance_id = serializer.validated_data["instance_id"]
                 event = Event.objects.get(id=instance_id)
-                event.students.remove(self.request.user)
-                return Response(status=status.HTTP_200_OK)
+                if (event.day > datetime.today().date() or
+                        (event.day == datetime.today().date() and event.start_time > datetime.now().time())):
+                    event.students.remove(self.request.user)
+                    return Response(status=status.HTTP_200_OK)
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
             else:
                 events = Event.objects.filter(classes_id=class_id)
                 for event in events:
-                    event.students.remove(self.request.user)
+                    if (event.day > datetime.today().date() or
+                            (event.day == datetime.today().date() and event.start_time > datetime.now().time())):
+                        event.students.remove(self.request.user)
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_401_UNAUTHORIZED)

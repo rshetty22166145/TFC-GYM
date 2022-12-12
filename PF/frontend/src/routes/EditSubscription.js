@@ -3,6 +3,7 @@ import axios from '../api/axios';
 import NavBar from '../components/NavBar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from 'react-router-dom';
 import './subscriptions.css';
 
 const CARDNUMBER_REGEX = /^\d{16}$/;
@@ -13,23 +14,19 @@ function EditSubscriptionPlan(){
     const [data, setData] = useState(null);
     const [plan, setPlan] = useState(null);
     const [loaded, setLoaded] = useState(false);
-
     const [curr_plan, setCurr_plan] = useState('');
-
     const [renew, setRenew] = useState('');
-
     const [cardnumber, setCardnumber] = useState('');
     const [validCardnumber, setValidCardnumber] = useState(false);
     const [cardnumberFocus, setCardnumberFocus] = useState(false);
-
-
     const [expiry, setExpiry] = useState('');
     const [validExpiry, setValidExpiry] = useState(false);
     const [expiryFocus, setExpiryFocus] = useState(false);
-
     const [cvv, setCvv] = useState('');
     const [validCvv, setValidCvv] = useState(false);
     const [cvvFocus, setCvvFocus] = useState(false);
+
+    let history = useHistory();
 
     useEffect(() => {
         getPlans();
@@ -225,17 +222,10 @@ function EditSubscriptionPlan(){
                             Please enter a valid CVV.<br />
                         </p>
                         <br></br>
-                        <div class="checkbox">
-                        <label htmlFor="renew">Set Recurring Payments</label>
-                        <input
-                        type="checkbox"
-                        id="renew"
-                        value={renew}
-                        onChange={(e) => setRenew(!renew)}>
-                        </input>
-                        </div>
-                        <br></br>
-                        <button onClick={handleSubmit} >Submit</button>
+                        <button onClick={(e) => {
+                            history.push(`/accounts/subscription`)
+                        }} style={{float:"left"}}>Go Back</button>
+                        <button onClick={handleSubmit} style={{float:"right"}}>Submit</button>
                     </div>
                 ) : (
                     <div></div>
