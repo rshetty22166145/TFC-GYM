@@ -191,6 +191,8 @@ class AccountsClassEnrolView(APIView):
             user = self.request.user
             subscription = UserSubscription.objects.filter(user=user)
             bill = UserPayments.objects.filter(user=user, next_pay__gte=datetime.today())
+            print(subscription)
+            print(bill)
             if len(subscription) == 0 and len(bill) == 0:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
             class_id = serializer.validated_data["class_id"]

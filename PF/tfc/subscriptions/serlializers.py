@@ -20,11 +20,11 @@ class UserSubscriptionCreateSerializer(serializers.ModelSerializer):
         cvv = validated_data['cvv']
         expiry = validated_data['expiry']
         amount = validated_data['curr_plan'].price
-        if renew == True and curr_plan.plan == "Yearly":
+        if curr_plan.plan == "Yearly":
             next_pay=datetime.datetime.today() + relativedelta(months=12)
             UserPayments.objects.create(user=user,cardnumber=cardnumber,pay_date=pay_date,amount=amount,username=username, next_pay=next_pay)
             return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,last_paid=pay_date,cardnumber=cardnumber,cvv=cvv,expiry=expiry, next_pay=next_pay,username=username)
-        if renew == True and curr_plan.plan == "Monthly":
+        if curr_plan.plan == "Monthly":
             next_pay=datetime.datetime.today() + relativedelta(months=1)
             UserPayments.objects.create(user=user,cardnumber=cardnumber,pay_date=pay_date,amount=amount,username=username, next_pay=next_pay)
             return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,last_paid=pay_date,cardnumber=cardnumber,cvv=cvv,expiry=expiry, next_pay=next_pay,username=username)

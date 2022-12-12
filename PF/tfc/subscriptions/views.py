@@ -51,10 +51,6 @@ class SubscriptionsAPIViewSet(
         return RestrictedUserSerializer
     # we override this function to use different permissions for different actions
     def get_permissions(self):
-        #Instantiates and returns the list of permissions that this view requires.
-
-        #if self.action in ["destroy"]:
-        #list, retrieve, update, destroy
         if self.action in ["list", "retrieve", "update", "destroy"]:
             permission_list = [permissions.IsOwnerOrAdmin, rest_framework.permissions.IsAuthenticated]
         else:
@@ -66,6 +62,8 @@ class SubscriptionsAPIViewSet(
         user = UserProfile.objects.get(username=self.request.user.username)
         subscription = UserSubscription.objects.get(user=user)
         date = subscription.next_pay
+        if date is None:
+            pass
         print("ok")
         events = Event.objects.filter(day__gte=date)
         for event in events:

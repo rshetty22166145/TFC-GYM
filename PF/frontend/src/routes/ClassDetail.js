@@ -123,7 +123,8 @@ function ClassDetail(){
             e.preventDefault();
             try {
                 const enrol = async() => {
-                    const url = `http://127.0.0.1:8000/api/accounts/admin/enrol/`;
+                    const username = localStorage.getItem("username");
+                    const url = `http://127.0.0.1:8000/api/accounts/${username}/enrol/`;
                     const token = localStorage.getItem("token");
                     const class_id = id;
                     const response = await axios.post(url,
@@ -162,7 +163,8 @@ function ClassDetail(){
             e.preventDefault();
             try {
                 const drop = async() => {
-                    const url = `http://127.0.0.1:8000/api/accounts/admin/drop/`;
+                    const username = localStorage.getItem("username");
+                    const url = `http://127.0.0.1:8000/api/accounts/${username}/drop/`;
                     const token = localStorage.getItem("token");
                     const class_id = id;
                     const response = await axios.post(url,
@@ -257,7 +259,8 @@ function ClassDetail(){
                                             e.preventDefault();
                                             try {
                                                 const enrol = async() => {
-                                                    const url = `http://127.0.0.1:8000/api/accounts/admin/enrol/`;
+                                                    const username = localStorage.getItem("username");
+                                                    const url = `http://127.0.0.1:8000/api/accounts/${username}/enrol/`;
                                                     const token = localStorage.getItem("token");
                                                     const class_id = id;
                                                     const instance_id = data.id;
@@ -287,7 +290,8 @@ function ClassDetail(){
                                             e.preventDefault();
                                             try {
                                                 const drop = async() => {
-                                                    const url = `http://127.0.0.1:8000/api/accounts/admin/drop/`;
+                                                    const username = localStorage.getItem("username");
+                                                    const url = `http://127.0.0.1:8000/api/accounts/${username}/drop/`;
                                                     const token = localStorage.getItem("token");
                                                     const class_id = id;
                                                     const instance_id = data.id;
