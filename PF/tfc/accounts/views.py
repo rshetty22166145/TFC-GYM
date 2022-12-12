@@ -196,6 +196,7 @@ class AccountsClassEnrolView(APIView):
             class_id = serializer.validated_data["class_id"]
             if "instance_id" in serializer.validated_data.keys():
                 instance_id = serializer.validated_data["instance_id"]
+                print(instance_id)
                 event = Event.objects.get(id=instance_id)
                 if event.students.count() < Class.objects.get(id=class_id).capacity and \
                         (event.day > datetime.today().date() or

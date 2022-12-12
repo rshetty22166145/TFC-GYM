@@ -146,7 +146,7 @@ function StudioDetail() {
             setLoaded2(true);
         }
         getSearch();
-      }
+    }
 
     function ClassBlock() {
         if (loaded) {

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from '../api/axios';
 import { useParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
 
 function ClassDetail(){
     const [loaded, setLoaded] = useState(false);
@@ -9,7 +11,13 @@ function ClassDetail(){
     const [subscriber, setSubscriber] = useState(false);
     const [clas, setClas] = useState(null);
     const [loaded2, setLoaded2] = useState(false);
+    const [startDate, setStartDate] = useState(new Date(0));
+    const [endDate, setEndDate] = useState(new Date(2032,1,1));
+    const [startTime, setStartTime] = useState('01:00');
+    const [endTime, setEndTime] = useState('23:00');
     const [data, setData] = useState(null);
+    const [capacityArray, setCapacityArray] = useState([]);
+    const [current, setCurrent] = useState(null);
     const [next, setNext] = useState(null);
     const { id } = useParams();
 
@@ -54,6 +62,27 @@ function ClassDetail(){
         console.log(clas)
     ), [clas])
 
+    useEffect(() => {
+        console.log(data);
+    }, [data])
+
+    useEffect(() => {
+        if (loaded) {
+            loadCapacityArray();
+        }
+    }, [current])
+
+    useEffect(() => {
+        if (loaded) {
+            loadCapacityArray();
+        }
+    }, [next])
+
+    useEffect(() => {
+        console.log("capacity array incoming")
+        console.log(capacityArray)
+    }, [capacityArray])
+
     const getClass = async () => {
         const json = await(
             await fetch(`http://localhost:8000/classes/${id}/`)
@@ -73,6 +102,19 @@ function ClassDetail(){
             )
         }
         return null;
+    }
+
+    const loadCapacityArray = async() => {
+        const url = current.split("?")[0] + "?limit=50000";
+        const json = await(
+            await fetch(url)
+        ).json();
+        const d = json.results
+        console.log(d);
+        const studentsArray = d.map((data) => (
+            data.students.length
+        ))
+        setCapacityArray(studentsArray);
     }
 
     function ClassEnrol(){
@@ -95,6 +137,7 @@ function ClassDetail(){
                         }
                     );
                     console.log(response);
+                    loadCapacityArray();
                 }
                 enrol();
                 console.log("enrolled");
@@ -133,6 +176,7 @@ function ClassDetail(){
                         }
                     );
                     console.log(response);
+                    loadCapacityArray();
                 }
                 drop();
                 console.log("you dropped");
@@ -151,12 +195,174 @@ function ClassDetail(){
         return null;
     }
 
+    const SearchResult = () => {
+        const getSearch = async() => {
+            const startYear = startDate.getFullYear();
+            let startMonth = startDate.getMonth() + 1;
+            if (startMonth.toString().length < 2) {
+                startMonth = "0" + startMonth.toString();
+            }
+            let startDay = startDate.getDate();
+            if (startDay.toString().length < 2) {
+                console.log(startDay.toString());
+                startDay = "0" + startDay.toString();
+            }
+            const endYear = endDate.getFullYear();
+            let endMonth = endDate.getMonth() + 1;
+            console.log("month:"+endMonth);
+            if (endMonth.toString().length < 2) {
+                endMonth = "0" + endMonth.toString();
+            }
+            let endDay = endDate.getDate();
+            console.log(endDay);
+            if (endDay.toString().length < 2) {
+                endDay = "0" + endDay.toString();
+            }
+            const startTimeArray = startTime.split(":");
+            const startHour = startTimeArray[0];
+            const startMin = startTimeArray[1];
+            const endTimeArray = endTime.split(":");
+            const endHour = endTimeArray[0];
+            const endMin = endTimeArray[1];
+            const url = `http://localhost:8000/classes/${id}/search/${startYear}-${startMonth}-${startDay}/${endYear}-${endMonth}-${endDay}/${startHour}-${startMin}-00/${endHour}-${endMin}-00/`;
+            console.log(url);
+            const json = await(
+                await fetch(url)
+            ).json();
+            console.log(json);
+            setData(json.results);
+            setCurrent(url);
+            setNext(json.next);
+            setLoaded2(true);
+        }
+        getSearch();
+    }
+
+    function Result() {
+        if (loaded2) {
+            return (
+                <div style={{color:"white"}}>
+                    {data.map((data, idx) => (
+                        <section class="outer" style={{marginTop:"30px", marginBottom:"30px", height:"300px", width:"500px"}}>
+                            Date : {data.day}
+                            <br></br>
+                            Time : {data.start_time} ~ {data.end_time}
+                            <br></br>
+                            Capacity : {capacityArray[idx]}/{data.classes.capacity}
+                            <br></br>
+                            <button onClick={
+                                (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        const enrol = async() => {
+                                            const url = `http://127.0.0.1:8000/api/accounts/admin/enrol/`;
+                                            const token = localStorage.getItem("token");
+                                            const class_id = id;
+                                            const instance_id = data.id;
+                                            console.log(instance_id);
+                                            const response = await axios.post(url,
+                                                JSON.stringify({ class_id, instance_id }),
+                                                {
+                                                    headers: { 
+                                                        'Content-Type': 'application/json' ,
+                                                        'Authorization': `token ${token}`,
+                                                    },
+                                                    withCredentials: true
+                                                }
+                                            );
+                                            console.log(response);
+                                            loadCapacityArray();
+                                        }
+                                        enrol();
+                                        console.log("enrolled");
+                                    } catch (err) {
+                                        console.log("you are not subscriber");
+                                    }
+                                }
+                            }>Enrol</button>
+                            <button onClick={
+                                (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        const drop = async() => {
+                                            const url = `http://127.0.0.1:8000/api/accounts/admin/drop/`;
+                                            const token = localStorage.getItem("token");
+                                            const class_id = id;
+                                            const instance_id = data.id;
+                                            console.log(instance_id);
+                                            const response = await axios.post(url,
+                                                JSON.stringify({ class_id, instance_id }),
+                                                {
+                                                    headers: { 
+                                                        'Content-Type': 'application/json' ,
+                                                        'Authorization': `token ${token}`,
+                                                    },
+                                                    withCredentials: true
+                                                }
+                                            );
+                                            console.log(response);
+                                            loadCapacityArray();
+                                        }
+                                        drop();
+                                        console.log("dropped");
+                                    } catch (err) {
+                                        console.log("you are not subscriber");
+                                    }
+                                }
+                            }>Drop</button>
+                        </section>
+                    ))}
+                </div>
+            )
+        }
+        return null;
+    }
+
+    const getNextList = (e) => {
+        e.preventDefault();
+        const getNextStudios = async() => {
+            const json = await(
+                await fetch(next)
+            ).json();
+            console.log(json);
+            setData((prev) => [...prev,...json.results]);
+            setCurrent(next);
+            setNext(json.next);
+        }
+        getNextStudios();
+    }
+
+    function LoadMore() {
+        if (next === null) {
+            return null;
+        }
+        return (
+            <button onClick={getNextList}>
+                Load More
+            </button>
+        )
+    }
+
     return(
         <div>
             <NavBar></NavBar>
             <ClassInfo></ClassInfo>
             <ClassEnrol></ClassEnrol>
             <ClassDrop></ClassDrop>
+            <h3>Schedules</h3>
+            <section class="outer" style={{width: "500px", color: "black", background: "white", marginBottom: "50px"}}>
+                <h4>Start Date</h4>
+                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                <h4>End Date</h4>
+                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                <h4>Start Time</h4>
+                <TimePicker onChange={setStartTime} value={startTime} />
+                <h4>End Time</h4>
+                <TimePicker onChange={setEndTime} value={endTime} />
+                <button onClick={SearchResult}>Get Schedules</button>
+            </section>
+            <Result></Result>
+            <LoadMore></LoadMore>
         </div>
     )
 }

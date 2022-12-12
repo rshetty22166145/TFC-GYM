@@ -196,3 +196,36 @@ class ClassSearchView(ListAPIView):
             query2 = self.model.objects.filter(classes__name__contains=self.kwargs['class_name'])
             queryset = query2.union(queryset)
         return queryset.order_by("day")
+
+
+class ClassIdSearchView(ListAPIView):
+    permission_classes = (AllowAny,)
+    filter_backends = (filters.SearchFilter,)
+    serializer_class = ClassSerializer
+    model = Event
+
+    def get_queryset(self):
+        classes = Class.objects.get(id=self.kwargs['class_id'])
+        start_year = self.kwargs['year']
+        start_month = self.kwargs['month']
+        start_day = self.kwargs['day']
+        start_date_string = f"{start_year}-{start_month}-{start_day}"
+        start_date = datetime.strptime(start_date_string, '%Y-%m-%d')
+        end_year = self.kwargs['year2']
+        end_month = self.kwargs['month2']
+        end_day = self.kwargs['day2']
+        end_date_string = f"{end_year}-{end_month}-{end_day}"
+        end_date = datetime.strptime(end_date_string, '%Y-%m-%d')
+        start_hour = self.kwargs['hour']
+        start_min = self.kwargs['min']
+        start_sec = self.kwargs['sec']
+        start_time_string = f"{start_hour}-{start_min}-{start_sec}"
+        start_time = datetime.strptime(start_time_string, '%H-%M-%S').time()
+        end_hour = self.kwargs['hour2']
+        end_min = self.kwargs['min2']
+        end_sec = self.kwargs['sec2']
+        end_time_string = f"{end_hour}-{end_min}-{end_sec}"
+        end_time = datetime.strptime(end_time_string, '%H-%M-%S').time()
+        queryset = self.model.objects.filter(classes=classes, start_time__gte=start_time,
+                                             end_time__lte=end_time, day__gte=start_date, day__lte=end_date)
+        return queryset.order_by("day")
