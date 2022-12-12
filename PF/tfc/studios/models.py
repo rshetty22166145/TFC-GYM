@@ -20,4 +20,3 @@ class Image(models.Model):
 class Amenity(models.Model):
     studio = models.ForeignKey(Studio, on_delete=models.CASCADE, related_name='amenities')
     type = models.CharField(max_length=200)
-    quantity = models.PositiveIntegerField()

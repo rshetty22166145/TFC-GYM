@@ -4,6 +4,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
 import './accounts.css';
+import NavBar from "./components/NavBar";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -86,6 +87,7 @@ function PasswordView() {
 
     return (
         <>
+            <NavBar></NavBar>
             {success ? (
                 <section class="outer">
                     <h1 class="prompt">Password Changed!</h1>
@@ -94,7 +96,7 @@ function PasswordView() {
                     </p>
                 </section>
             ) : (
-                <section class="outer">
+                <section class="outer" style={{marginTop:"100px"}}>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1 class="prompt">Change Password</h1>
                     <form onSubmit={handleSubmit} class="basicform">

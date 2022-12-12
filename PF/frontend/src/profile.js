@@ -136,6 +136,7 @@ function ProfileView() {
 
     return (
         <>
+            <NavBar></NavBar>
             {success ? (
                 <div>
                     <section class="outer">
@@ -146,7 +147,7 @@ function ProfileView() {
                     </section>
                 </div>
             ) : (
-                <section class="outer">
+                <section class="outer" style={{marginTop:"100px"}}>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1 class="prompt">Edit Profile</h1>
                     <form onSubmit={handleSubmit} class="basicform">
