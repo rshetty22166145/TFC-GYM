@@ -2,16 +2,16 @@ from rest_framework import serializers
 import datetime
 from django.utils.translation import gettext_lazy as _
 from subscriptions.models import UserPayments, UserSubscription, SubcriptionPlan  # We import the models
-from accounts.serializers import RestrictedUserSerializer , UserSerializer
+from accounts.serializers import RestrictedUserSerializer, UserSerializer
 from dateutil.relativedelta import relativedelta
-#from ..accounts.serializers import RestrictedUserSerializer
+# from ..accounts.serializers import RestrictedUserSerializer
 from rest_framework.response import Response
 from classes.models import Event
 
 
 class UserSubscriptionCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
-        user =  self.context['request'].user
+        user = self.context['request'].user
         username = self.context['request'].user.username
         curr_plan = validated_data['curr_plan']
         renew = validated_data['renew']
@@ -21,23 +21,33 @@ class UserSubscriptionCreateSerializer(serializers.ModelSerializer):
         expiry = validated_data['expiry']
         amount = validated_data['curr_plan'].price
         if curr_plan.plan == "Yearly":
-            next_pay=datetime.datetime.today() + relativedelta(months=12)
-            UserPayments.objects.create(user=user,cardnumber=cardnumber,pay_date=pay_date,amount=amount,username=username, next_pay=next_pay)
-            return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,last_paid=pay_date,cardnumber=cardnumber,cvv=cvv,expiry=expiry, next_pay=next_pay,username=username)
+            next_pay = datetime.datetime.today() + relativedelta(months=12)
+            UserPayments.objects.create(user=user, cardnumber=cardnumber, pay_date=pay_date, amount=amount,
+                                        username=username, next_pay=next_pay)
+            return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
+                                                   cardnumber=cardnumber, cvv=cvv, expiry=expiry, next_pay=next_pay,
+                                                   username=username)
         if curr_plan.plan == "Monthly":
-            next_pay=datetime.datetime.today() + relativedelta(months=1)
-            UserPayments.objects.create(user=user,cardnumber=cardnumber,pay_date=pay_date,amount=amount,username=username, next_pay=next_pay)
-            return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,last_paid=pay_date,cardnumber=cardnumber,cvv=cvv,expiry=expiry, next_pay=next_pay,username=username)
+            next_pay = datetime.datetime.today() + relativedelta(months=1)
+            UserPayments.objects.create(user=user, cardnumber=cardnumber, pay_date=pay_date, amount=amount,
+                                        username=username, next_pay=next_pay)
+            return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
+                                                   cardnumber=cardnumber, cvv=cvv, expiry=expiry, next_pay=next_pay,
+                                                   username=username)
 
-        #return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,cardnumber=cardnumber,cvv=cvv,expiry=expiry)
-        return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,last_paid=pay_date,cardnumber=cardnumber,cvv=cvv,expiry=expiry,username=username)
+        # return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,cardnumber=cardnumber,cvv=cvv,expiry=expiry)
+        return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
+                                               cardnumber=cardnumber, cvv=cvv, expiry=expiry, username=username)
+
     def validate(self, attrs):
         if self.context['request'].user.username in UserSubscription.objects.values_list('username', flat=True):
             raise serializers.ValidationError({"User has a plan already, cannot create another."})
         return attrs
+
     class Meta:
-        model=UserSubscription
-        fields = ("cardnumber","curr_plan" ,"renew","last_paid","cvv","expiry")
+        model = UserSubscription
+        fields = ("cardnumber", "curr_plan", "renew", "last_paid", "cvv", "expiry")
+
 
 class UserSubscriptionViewSerializer(serializers.ModelSerializer):
     curr_plan = serializers.SerializerMethodField()
@@ -48,9 +58,9 @@ class UserSubscriptionViewSerializer(serializers.ModelSerializer):
         return dictionary
 
     class Meta:
-        model=UserSubscription
-        fields = ["user","username","last_paid","next_pay","cardnumber","curr_plan" ,"renew","cvv","expiry"]
-        read_only_fields = ["user","username","pay_date","next_pay"]
+        model = UserSubscription
+        fields = ["user", "username", "last_paid", "next_pay", "cardnumber", "curr_plan", "renew", "cvv", "expiry"]
+        read_only_fields = ["user", "username", "pay_date", "next_pay"]
 
     def update(self, instance, validated_data):
         instance.user = validated_data.get('user', instance.user)
@@ -65,11 +75,12 @@ class UserSubscriptionViewSerializer(serializers.ModelSerializer):
 
         return instance
 
+
 class UserSubscriptionEditSerializer(serializers.ModelSerializer):
     class Meta:
-        model=UserSubscription
-        fields = ["user","username","last_paid","next_pay","cardnumber","curr_plan" ,"renew","cvv","expiry"]
-        read_only_fields = ["user","username","pay_date","next_pay"]
+        model = UserSubscription
+        fields = ["user", "username", "last_paid", "next_pay", "cardnumber", "curr_plan", "renew", "cvv", "expiry"]
+        read_only_fields = ["user", "username", "pay_date", "next_pay"]
 
     def update(self, instance, validated_data):
         print(validated_data.get('renew', instance.renew))
@@ -85,13 +96,14 @@ class UserSubscriptionEditSerializer(serializers.ModelSerializer):
 
         return instance
 
+
 class UserPaymentsViewSerializer(serializers.ModelSerializer):
     class Meta:
-        model=UserPayments
-        fields = ["user","username","pay_date","cardnumber" ,"amount","next_pay"]
+        model = UserPayments
+        fields = ["user", "username", "pay_date", "cardnumber", "amount", "next_pay"]
+
 
 class SubscriptionPlansViewSerializer(serializers.ModelSerializer):
     class Meta:
-        model=SubcriptionPlan
-        fields=["id","name","price","plan"]
-
+        model = SubcriptionPlan
+        fields = ["id", "name", "price", "plan", "description"]

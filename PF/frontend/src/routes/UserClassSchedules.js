@@ -101,7 +101,9 @@ function UserClassSchedule() {
             {loaded ? (
                 <div>
                     <Result></Result>
-                    <LoadMore></LoadMore>
+                    <div style={{textAlign:"center"}}>
+                        <LoadMore></LoadMore>
+                    </div>
                 </div>
             ):(
                 <div>Loading...</div>

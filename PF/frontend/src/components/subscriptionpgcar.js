@@ -13,8 +13,8 @@ function CarouselPlans() {
             alt="First slide"
             />
             <Carousel.Caption>
-            <h3 class="highlighted">Tabata</h3>
-            <p class="highlighted">A fun HIIT workout featuring exercises that last four minutes.</p>
+            <h3>Tabata</h3>
+            <p>A fun HIIT workout featuring exercises that last four minutes.</p>
             </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -25,8 +25,8 @@ function CarouselPlans() {
             alt="Second slide"
             />
             <Carousel.Caption>
-            <h3 class="highlighted"> Crossfit</h3>
-            <p class="highlighted">Strength and conditioning workout of functional movement at high intensities.</p>
+            <h3> Crossfit</h3>
+            <p>Strength and conditioning workout of functional movement at high intensities.</p>
             </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -38,8 +38,8 @@ function CarouselPlans() {
             />
 
             <Carousel.Caption>
-            <h3 class="highlighted">Yoga</h3>
-            <p class="highlighted"> A healthy activity of postures connected by flowing sequences.</p>
+            <h3>Yoga</h3>
+            <p> A healthy activity of postures connected by flowing sequences.</p>
             </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -51,8 +51,8 @@ function CarouselPlans() {
             />
 
             <Carousel.Caption>
-            <h3 class="highlighted">Zumba</h3>
-            <p class="highlighted">Each workout involves highly choreographed movements set to upbeat salsa and international music.</p>
+            <h3>Zumba</h3>
+            <p>Each workout involves highly choreographed movements set to upbeat salsa.</p>
             </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -64,8 +64,8 @@ function CarouselPlans() {
             />
 
             <Carousel.Caption>
-            <h3 class="highlighted">Spin</h3>
-            <p class="highlighted">Ride together in this 55-minute high-intensity Cycle class.</p>
+            <h3>Spin</h3>
+            <p>Ride together in this 55-minute high-intensity Cycle class.</p>
             </Carousel.Caption>
         </Carousel.Item>
     </Carousel>

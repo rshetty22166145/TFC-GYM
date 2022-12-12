@@ -125,6 +125,9 @@ function EditSubscriptionPlan(){
                 }
             );
             console.log(response?.data);
+            if (response?.data !== null) {
+                history.push('/accounts/subscription');
+            }
         } catch (err) {
             console.log(err.response)
         }

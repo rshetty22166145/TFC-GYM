@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./context/AuthProvider";
 import './accounts.css';
 import axios from './api/axios';
+import { useHistory } from 'react-router-dom';
 const LOGIN_URL = 'http://localhost:8000/api/accounts/login/';
 
 const Login = () => {
@@ -14,9 +15,17 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    let history = useHistory();
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
+
+    useEffect(() => {
+        if (success) {
+            history.push('/');
+        }
+    }, [success])
 
     useEffect(() => {
         setErrMsg('');

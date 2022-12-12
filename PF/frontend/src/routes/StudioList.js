@@ -38,6 +38,18 @@ function StudioList() {
     const [searchClassName, setSearchClassName] = useState(true);
     const [searchCoachName, setSearchCoachName] = useState(true);
     const [searchAmentity, setSearchAmentity] = useState(true);
+    const LeafIcon = L.Icon.extend({
+      options: {}
+    });
+    const greenIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+    const [icon, setIcon] = useState(greenIcon);
 
     useEffect(() => {
       const loadData = async() =>{
@@ -249,7 +261,7 @@ function StudioList() {
                 </Popup>
               </Marker>
               {markers.map((position, idx) => 
-                <Marker key={`marker-${idx}`} position={position}>
+                <Marker icon={icon} key={`marker-${idx}`} position={position}>
                   <Popup>
                     <span>{nameList[idx]}</span>
                   </Popup>

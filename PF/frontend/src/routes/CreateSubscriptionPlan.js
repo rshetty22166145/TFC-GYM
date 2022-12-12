@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import './subscriptions.css';
@@ -13,23 +14,18 @@ const SUBSCRIPTION_URL = 'http://localhost:8000/api/subscriptions/'
 function CreateSubscriptionPlan(){
     const [data, setData] = useState(null);
     const [loaded, setLoaded] = useState(false);
-
     const [curr_plan, setCurr_plan] = useState('');
-
-    const [renew, setRenew] = useState('');
-
     const [cardnumber, setCardnumber] = useState('');
     const [validCardnumber, setValidCardnumber] = useState(false);
     const [cardnumberFocus, setCardnumberFocus] = useState(false);
-
-
     const [expiry, setExpiry] = useState('');
     const [validExpiry, setValidExpiry] = useState(false);
     const [expiryFocus, setExpiryFocus] = useState(false);
-
     const [cvv, setCvv] = useState('');
     const [validCvv, setValidCvv] = useState(false);
     const [cvvFocus, setCvvFocus] = useState(false);
+
+    let history = useHistory();
 
     useEffect(() => {
         getPlans();
@@ -103,8 +99,10 @@ function CreateSubscriptionPlan(){
             console.log(JSON.stringify(response))
             //clear state and controlled inputs
             //need value attrib on inputs for this
+            if (response?.data !== null) {
+                history.push(`/`)
+            }
             setCurr_plan('');
-            setRenew('');
             setCardnumber('');
             setExpiry('');
             setCvv('');

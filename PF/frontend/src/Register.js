@@ -3,6 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
 import './accounts.css';
+import { useHistory } from "react-router-dom";
 
 //Regex Checks
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -41,9 +42,17 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    let history = useHistory();
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
+
+    useEffect(() => {
+        if (success) {
+            history.push('/login');
+        }
+    }, [success])
 
     useEffect(() => {
         setValidName(USER_REGEX.test(username));

@@ -148,6 +148,21 @@ function StudioDetail() {
         getSearch();
     }
 
+    const handleSearch2 = () => {
+        const getSearch = async() => {
+            const url = `http://localhost:8000/studios/${id}/h/b/`;
+            console.log(url);
+            const json = await(
+                await fetch(url)
+            ).json();
+            console.log(json);
+            setData(json.results);
+            setNext(json.next);
+            setLoaded2(true);
+        }
+        getSearch();
+    };
+
     function ClassBlock() {
         if (loaded) {
             return(
@@ -292,8 +307,9 @@ function StudioDetail() {
                     value={search} 
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button onClick={handleSearch}>Get Schedules</button>
+                <button onClick={handleSearch}>Get Schedules Using Filter</button>
             </section>
+            <button onClick={handleSearch2}>Get Further Schedules</button>
             <Result></Result>
             <LoadMore></LoadMore>
         </div>

@@ -240,6 +240,22 @@ function ClassDetail(){
         getSearch();
     }
 
+    const SearchResult2 = () => {
+        const getSearch = async() => {
+            const url = `http://localhost:8000/classes/${id}/h/b/`;
+            console.log(url);
+            const json = await(
+                await fetch(url)
+            ).json();
+            console.log(json);
+            setData(json.results);
+            setCurrent(url);
+            setNext(json.next);
+            setLoaded2(true);
+        }
+        getSearch();
+    }
+
     function Result() {
         if (loaded2) {
             return (
@@ -369,8 +385,9 @@ function ClassDetail(){
                 <TimePicker onChange={setStartTime} value={startTime} />
                 <h4>End Time</h4>
                 <TimePicker onChange={setEndTime} value={endTime} />
-                <button onClick={SearchResult}>Get Schedules</button>
+                <button onClick={SearchResult}>Get Schedules Using Filter</button>
             </section>
+            <button onClick={SearchResult2}>Get Further Schedules</button>
             <Result></Result>
             <LoadMore></LoadMore>
         </div>

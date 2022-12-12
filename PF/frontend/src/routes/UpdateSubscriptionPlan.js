@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from '../api/axios';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from 'react-router-dom';
@@ -78,6 +78,15 @@ function SubscriptionDetail(){
     }
     
     function UserSubscriptonInfo(){
+        if(!subscriber){
+            return(
+                <div>
+                    <h1>
+                        <Link to={`/subscribe`}>Let's get to subscribe</Link>
+                    </h1>
+                </div>
+            )
+        }
         if(loaded){
             return(
                 <section>
@@ -202,7 +211,7 @@ function SubscriptionDetail(){
             <NavBar></NavBar>
             <br></br>
             <br></br>
-            <section class="outer">
+            <section class="outer" style={{minHeight:"0px"}}>
             <UserSubscriptonInfo></UserSubscriptonInfo>
             { data.renew ? (
                 <CancelSubscription></CancelSubscription>

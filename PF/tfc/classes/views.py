@@ -188,7 +188,7 @@ class ClassSearchView(ListAPIView):
         end_time_string = f"{end_hour}-{end_min}-{end_sec}"
         end_time = datetime.strptime(end_time_string, '%H-%M-%S').time()
         queryset = self.model.objects.filter(classes__studio=studio, start_time__gte=start_time,
-                                             end_time__lte=end_time, day__gte=start_date, day__lte=end_date)
+                                             end_time__lte=end_time, day__gte=start_date, day__lte=end_date, cancel=False)
         if self.kwargs['coach_name'] != "lol960609loldude":
             query1 = self.model.objects.filter(classes__coach__contains=self.kwargs['coach_name'])
             queryset = query1.union(queryset)
@@ -227,5 +227,36 @@ class ClassIdSearchView(ListAPIView):
         end_time_string = f"{end_hour}-{end_min}-{end_sec}"
         end_time = datetime.strptime(end_time_string, '%H-%M-%S').time()
         queryset = self.model.objects.filter(classes=classes, start_time__gte=start_time,
-                                             end_time__lte=end_time, day__gte=start_date, day__lte=end_date)
+                                             end_time__lte=end_time, day__gte=start_date, day__lte=end_date, cancel=False)
+        return queryset.order_by("day")
+
+
+class ClassSearchSimpleView(ListAPIView):
+    permission_classes = (AllowAny,)
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    serializer_class = ClassSerializer
+    model = Event
+
+    def get_queryset(self):
+        studio = Studio.objects.get(id=self.kwargs['studio_id'])
+        queryset = self.model.objects.filter(classes__studio=studio, day__gte=datetime.now().date(), cancel=False)
+        queryset2 = self.model.objects.filter(classes__studio=studio, day=datetime.now().date(),
+                                              start_time__gte=datetime.now().time(), cancel=False)
+        queryset = queryset.union(queryset2)
+        return queryset.order_by("day")
+
+
+class ClassIdSimpleSearchView(ListAPIView):
+    permission_classes = (AllowAny,)
+    filter_backends = (filters.SearchFilter,)
+    serializer_class = ClassSerializer
+    model = Event
+
+    def get_queryset(self):
+        classes = Class.objects.get(id=self.kwargs['class_id'])
+        queryset = self.model.objects.filter(classes=classes, day__gte=datetime.now().date(), cancel=False)
+        queryset2 = self.model.objects.filter(classes=classes, day=datetime.now().date(),
+                                              start_time__gte=datetime.now().time(), cancel=False)
+        queryset = queryset.union(queryset2)
         return queryset.order_by("day")

@@ -15,10 +15,10 @@ function PasswordView() {
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
-
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
     const username = localStorage.getItem('username');
+
     const getUser = async () => {
         const token = localStorage.getItem('token');
         console.log(token)
@@ -33,6 +33,14 @@ function PasswordView() {
     }
 
     useEffect(() => {
+        getUser();
+    },[])
+
+    useEffect(() => {
+        console.log(user);
+    },[user])
+
+    useEffect(() => {
         setValidPwd(PWD_REGEX.test(password));
     }, [password])
 
@@ -45,6 +53,10 @@ function PasswordView() {
         try {
             const formData = new FormData();
             formData.append("password", password);
+            formData.append("first_name", user.first_name);
+            formData.append("email", user.email);
+            formData.append("last_name", user.last_name);
+            formData.append("phone_number", user.phone_number);
 
             const token = localStorage.getItem('token')
             console.log(token)

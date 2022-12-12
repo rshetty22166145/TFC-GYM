@@ -25,7 +25,7 @@ class Command(BaseCommand):
             i += 1
         self.stdout.write(f"{i} subscription payments done!")
 
-        no_subs = UserSubscription.objects.filter(next_pay__lte=datetime.today(), renew=False)
+        no_subs = UserSubscription.objects.filter(renew=False)
         i = 0
         for subscription in no_subs:
             user = subscription.user
@@ -34,5 +34,11 @@ class Command(BaseCommand):
             for event in events:
                 event.students.remove(user)
             i += 1
+        self.stdout.write(f"{i} non-subscribed users class bookings are cancelled")
+
+        no_subs2 = UserSubscription.objects.filter(next_pay__lte=datetime.today(), renew=False)
+        i = 0
+        for subscription in no_subs2:
             subscription.delete()
-        self.stdout.write(f"{i} non-subscribed users class bookings are cancelled and subscription deleted.")
+            i += 1
+        self.stdout.write(f"{i} non-subscribed users subscription deleted.")
