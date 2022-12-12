@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from '../api/axios';
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 function SubscriptionDetail(){
     const [loaded, setLoaded] = useState(false);
@@ -78,9 +80,15 @@ function SubscriptionDetail(){
                 <div>
                     <div className='card' key ={data.id} style={{margin:"20px"}}>
                     <h2>Subscription Plan Details</h2><br></br>
-                    <h3>Current Plan: {data.curr_plan}</h3><br></br>
-                    <h3>Renewal Option: {data.renew}</h3><br></br>
-                    <h3>Next Payment: {data.next_pay}</h3><br></br>
+                    <h3>Current Plan: {data.curr_plan.name}</h3><br></br>
+                    <h3>Renewal Option:{
+                        data.renew ? (
+                            <div><FontAwesomeIcon icon={faCheck}/></div>
+                        ):(
+                            <div><FontAwesomeIcon icon={faTimes}/></div>
+                        )}
+                    </h3><br></br>
+                    <h3>Subscription End Date: {data.next_pay}</h3><br></br>
                     <h2>Payment Information</h2><br></br>
                     <h3>Card Number: {data.cardnumber}</h3>
                     <h3>Expiry Date: {data.expiry}</h3>

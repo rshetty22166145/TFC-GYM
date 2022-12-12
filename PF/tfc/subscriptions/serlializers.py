@@ -40,6 +40,13 @@ class UserSubscriptionCreateSerializer(serializers.ModelSerializer):
         fields = ("cardnumber","curr_plan" ,"renew","last_paid","cvv","expiry")
 
 class UserSubscriptionViewSerializer(serializers.ModelSerializer):
+    curr_plan = serializers.SerializerMethodField()
+
+    def get_curr_plan(self, obj):
+        print(obj.curr_plan)
+        dictionary = {"id": obj.curr_plan.id, "name": obj.curr_plan.name}
+        return dictionary
+
     class Meta:
         model=UserSubscription
         fields = ["user","username","last_paid","next_pay","cardnumber","curr_plan" ,"renew","cvv","expiry"]
