@@ -80,7 +80,8 @@ function SubscriptionDetail(){
                     <h2>Subscription Plan Details</h2><br></br>
                     <h3>Current Plan: {data.curr_plan}</h3><br></br>
                     <h3>Renewal Option: {data.renew}</h3><br></br>
-                    <h3>Next Payment: {data.next_pay}</h3><br></br>
+                    <h3>Last Payment: {data.last_paid}</h3><br></br>
+                    <h3>Subscription End Date: {data.next_pay}</h3><br></br>
                     <h2>Payment Information</h2><br></br>
                     <h3>Card Number: {data.cardnumber}</h3>
                     <h3>Expiry Date: {data.expiry}</h3>
