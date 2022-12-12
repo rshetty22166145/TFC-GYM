@@ -72,8 +72,9 @@ function PaymentHistoryView(){
             return (
                 <div>
                     {data.map((data) => (
-                    <div className='card' key ={data.id} style={{margin:"20px"}}>
-                        <p>Payment date : {data.pay_date}</p>
+                    <div className='outer' key ={data.id} style={{margin:"20px", color:"white", minHeight:"0"}}>
+                        <p>Payment date : {data.pay_date} {data.pay_time.split(".")[0]}</p>
+                        <p>Payment card number : {data.cardnumber}</p>
                         <p>Payment amount : ${data.amount}</p>
                     </div>
                     ))}
@@ -95,7 +96,7 @@ function PaymentHistoryView(){
       }
 
     return(
-        <div>
+        <div  style={{textAlign:"center"}}>
             <NavBar></NavBar>
             <h1>Payment History</h1>
             <div className='item-container' style={{textAlign:"center"}}>

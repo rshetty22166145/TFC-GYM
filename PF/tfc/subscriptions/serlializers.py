@@ -16,26 +16,25 @@ class UserSubscriptionCreateSerializer(serializers.ModelSerializer):
         curr_plan = validated_data['curr_plan']
         renew = validated_data['renew']
         pay_date = datetime.datetime.today()
+        pay_time = datetime.datetime.today().time()
         cardnumber = validated_data['cardnumber']
         cvv = validated_data['cvv']
         expiry = validated_data['expiry']
         amount = validated_data['curr_plan'].price
         if curr_plan.plan == "Yearly":
             next_pay = datetime.datetime.today() + relativedelta(months=12)
-            UserPayments.objects.create(user=user, cardnumber=cardnumber, pay_date=pay_date, amount=amount,
-                                        username=username, next_pay=next_pay)
+            UserPayments.objects.create(user=user, cardnumber=cardnumber, pay_date=pay_date, pay_time=pay_time,
+                                        amount=amount, username=username, next_pay=next_pay)
             return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
                                                    cardnumber=cardnumber, cvv=cvv, expiry=expiry, next_pay=next_pay,
                                                    username=username)
         if curr_plan.plan == "Monthly":
             next_pay = datetime.datetime.today() + relativedelta(months=1)
             UserPayments.objects.create(user=user, cardnumber=cardnumber, pay_date=pay_date, amount=amount,
-                                        username=username, next_pay=next_pay)
+                                        username=username, next_pay=next_pay, pay_time=pay_time,)
             return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
                                                    cardnumber=cardnumber, cvv=cvv, expiry=expiry, next_pay=next_pay,
                                                    username=username)
-
-        # return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew,cardnumber=cardnumber,cvv=cvv,expiry=expiry)
         return UserSubscription.objects.create(user=user, curr_plan=curr_plan, renew=renew, last_paid=pay_date,
                                                cardnumber=cardnumber, cvv=cvv, expiry=expiry, username=username)
 
@@ -100,7 +99,7 @@ class UserSubscriptionEditSerializer(serializers.ModelSerializer):
 class UserPaymentsViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserPayments
-        fields = ["user", "username", "pay_date", "cardnumber", "amount", "next_pay"]
+        fields = ["user", "username", "pay_date", "cardnumber", "amount", "next_pay", "pay_time"]
 
 
 class SubscriptionPlansViewSerializer(serializers.ModelSerializer):

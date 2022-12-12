@@ -38,4 +38,5 @@ class UserPayments(models.Model):
     cardnumber = models.PositiveIntegerField(editable=True)
     amount = models.FloatField()
     pay_date = models.DateField(auto_now_add=True, editable=True)
+    pay_time = models.TimeField(auto_now_add=True, editable=True)
     next_pay = models.DateField(null=True, editable=True)
