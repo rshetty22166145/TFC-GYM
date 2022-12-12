@@ -10,3 +10,6 @@ chmod u+rwx manage.py
 ./manage.py makemigrations
 ./manage.py migrate
 cd ..
+cd frontend
+npm install
+cd..
