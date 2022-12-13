@@ -77,18 +77,18 @@ const Login = () => {
         <>
             <NavBar></NavBar>
             {success  ? (
-                <section class="outer">
-                    <h1 class="prompt">You are logged in!</h1>
+                <section className="outer">
+                    <h1 className="prompt">You are logged in!</h1>
                     <br />
                     <p>
                         <a href="http://localhost:3000/">Go to Home</a>
                     </p>
                 </section>
             ) : (
-                <section class="outer">
+                <section className="outer">
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1 class="prompt">Login</h1>
-                    <form onSubmit={handleSubmit} class="basicform">
+                    <h1 className="prompt">Login</h1>
+                    <form onSubmit={handleSubmit} className="basicform">
                         <label htmlFor="username">Username:</label>
                         <input
                             type="text"

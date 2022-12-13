@@ -135,18 +135,18 @@ const Register = () => {
         <>
             <NavBar></NavBar>
             {success ? (
-                <section class="outer">
-                    <h1 class="prompt">Success!</h1>
+                <section className="outer">
+                    <h1 className="prompt">Success!</h1>
                     <p>
                         <a href="http://localhost:3000/Login">Sign In</a>
                     </p>
                 </section>
             ) : (
-                <section class="outer" style={{marginTop:"150px"}}>
+                <section className="outer" style={{marginTop:"150px"}}>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1 class="prompt">Register</h1>
-                    <p class="prompt">All fields are required</p>
-                    <form onSubmit={handleSubmit} class="basicform">
+                    <h1 className="prompt">Register</h1>
+                    <p className="prompt">All fields are required</p>
+                    <form onSubmit={handleSubmit} className="basicform">
                         <label htmlFor="username">
                             Username:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
@@ -290,7 +290,7 @@ const Register = () => {
 
                         <button disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}>Sign Up</button>
                     </form>
-                    <p class="smallprompt">
+                    <p className="smallprompt">
                         Already registered?<br />
                         <span className="line">
                             <a href="http://localhost:3000/Login">Sign In</a>

@@ -29,7 +29,7 @@ class UserSubscription(models.Model):
     next_pay = models.DateField(null=True, editable=True)
     cardnumber = models.PositiveIntegerField(editable=True)
     cvv = models.PositiveIntegerField(editable=True)
-    expiry = models.PositiveIntegerField(help_text="Enter as MMYY", editable=True)
+    expiry = models.CharField(help_text="Enter as MMYY", editable=True, max_length=100)
 
 
 class UserPayments(models.Model):
