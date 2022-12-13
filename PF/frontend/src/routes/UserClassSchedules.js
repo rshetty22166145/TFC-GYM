@@ -97,7 +97,7 @@ function UserClassSchedule() {
             <br></br>
             <br></br>
             <br></br>
-            <h2 style={{textAlign:"center"}}>User Class History</h2>
+            <h2 style={{textAlign:"center"}}>User Class Schedule</h2>
             {loaded ? (
                 <div>
                     <Result></Result>
