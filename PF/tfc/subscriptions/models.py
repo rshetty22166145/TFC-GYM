@@ -27,8 +27,8 @@ class UserSubscription(models.Model):
     renew = models.BooleanField(editable=True, default=True)
     last_paid = models.DateField(auto_now_add=True, editable=True)
     next_pay = models.DateField(null=True, editable=True)
-    cardnumber = models.PositiveIntegerField(editable=True)
-    cvv = models.PositiveIntegerField(editable=True)
+    cardnumber = models.CharField(editable=True, max_length=100)
+    cvv = models.CharField(editable=True, max_length=100)
     expiry = models.CharField(help_text="Enter as MMYY", editable=True, max_length=100)
 
 
