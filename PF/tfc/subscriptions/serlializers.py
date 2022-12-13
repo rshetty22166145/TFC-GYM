@@ -72,6 +72,14 @@ class UserSubscriptionViewSerializer(serializers.ModelSerializer):
         instance.expiry = validated_data.get('expiry', instance.expiry)
         instance.save()
 
+        no_subs = UserSubscription.objects.filter(renew=False)
+        for subscription in no_subs:
+            user = subscription.user
+            date = subscription.next_pay
+            events = Event.objects.filter(day__gte=date)
+            for event in events:
+                event.students.remove(user)
+
         return instance
 
 
@@ -92,6 +100,14 @@ class UserSubscriptionEditSerializer(serializers.ModelSerializer):
         instance.cvv = validated_data.get('cvv', instance.cvv)
         instance.expiry = validated_data.get('expiry', instance.expiry)
         instance.save()
+
+        no_subs = UserSubscription.objects.filter(renew=False)
+        for subscription in no_subs:
+            user = subscription.user
+            date = subscription.next_pay
+            events = Event.objects.filter(day__gte=date)
+            for event in events:
+                event.students.remove(user)
 
         return instance
 
