@@ -287,6 +287,7 @@ function StudioDetail() {
             <h1>Welcome to the studio { studio.name }</h1>
             <h3>Address : { studio.address }</h3>
             <h3>Postal Code : { studio.postal_code }</h3>
+            <h3>Phone Number : { studio.phone_number }</h3>
             <h3><a href={studio.link}>Get Direction</a></h3>
             <h3>Our Classes</h3>
             <ClassBlock></ClassBlock>

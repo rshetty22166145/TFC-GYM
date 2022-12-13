@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Studio({ id, name, address, images, amenities, postalCode }) {
+function Studio({ id, name, address, images, amenities, postalCode, phone_number }) {
     console.log(amenities);
 
     return (
@@ -11,6 +11,7 @@ function Studio({ id, name, address, images, amenities, postalCode }) {
             </h2>
             <h3>Address : {address}</h3>
             <h3>Postal Code : {postalCode}</h3>
+            <h3>Phone Number : {phone_number}</h3>
             <h3>Amenities</h3>
             <ul style={{
                 display: "inline-block",

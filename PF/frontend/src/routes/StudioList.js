@@ -297,6 +297,7 @@ function StudioList() {
                 id={studio.id}
                 name={studio.name}
                 address={studio.address}
+                phone_number={studio.phone_number}
                 images={studio.imagesSerializer}
                 amenities={studio.amenities}
                 postalCode={studio.postal_code}
