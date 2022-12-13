@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
 import './accounts.css';
 import { useHistory } from "react-router-dom";
+import NavBar from "./components/NavBar";
 
 //Regex Checks
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -132,6 +133,7 @@ const Register = () => {
 
     return (
         <>
+            <NavBar></NavBar>
             {success ? (
                 <section class="outer">
                     <h1 class="prompt">Success!</h1>
@@ -140,7 +142,7 @@ const Register = () => {
                     </p>
                 </section>
             ) : (
-                <section class="outer">
+                <section class="outer" style={{marginTop:"150px"}}>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1 class="prompt">Register</h1>
                     <p class="prompt">All fields are required</p>

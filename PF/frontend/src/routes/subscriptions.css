@@ -70,10 +70,6 @@ body {
     border-radius: 25px;
 }
 
-a, a:visited {
-    color: #fff;
-}
-
 .left{
     margin-right: auto;  
     margin-left: 0;    

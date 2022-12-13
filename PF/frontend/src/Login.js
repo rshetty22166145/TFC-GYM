@@ -3,6 +3,7 @@ import AuthContext from "./context/AuthProvider";
 import './accounts.css';
 import axios from './api/axios';
 import { useHistory } from 'react-router-dom';
+import NavBar from './components/NavBar';
 const LOGIN_URL = 'http://localhost:8000/api/accounts/login/';
 
 const Login = () => {
@@ -74,6 +75,7 @@ const Login = () => {
 
     return (
         <>
+            <NavBar></NavBar>
             {success  ? (
                 <section class="outer">
                     <h1 class="prompt">You are logged in!</h1>

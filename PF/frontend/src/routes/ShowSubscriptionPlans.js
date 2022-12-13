@@ -93,9 +93,7 @@ function ShowSubscriptionPlans(){
     return(
         <div>
         <NavBar></NavBar>
-        <br></br>
-        <br></br>
-        <h1 class="welcome" style={{width:"100vw"}}><p>The Best Classes at Toronto Fitness Club</p></h1>
+        <h1 class="welcome" style={{width:"100vw", marginTop:"100px"}}><p>The Best Classes at Toronto Fitness Club</p></h1>
         <CarouselPlans></CarouselPlans>
         <div  style={{width:"100vw"}}>
         <h3 class="welcome">Limited time offers! Subscribe today!</h3>

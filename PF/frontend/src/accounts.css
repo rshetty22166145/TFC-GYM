@@ -59,6 +59,10 @@ a, a:visited {
     color: #fff;
 }
 
+.dropdown a{
+    color: grey;
+}
+
 .leaflet-container a {
     color: black;
 }
