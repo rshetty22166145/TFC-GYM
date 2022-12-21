@@ -11,7 +11,7 @@ Django, REST, and React.
 
 ## Instructions to Run:
 
-1- Clone Repository and make sure you have latest version of Django and React Intsalled.
+1- Clone Repository and make sure you have latest version of Django and React Installed.
 
 2- In terminal run startup.ch, renenw.ch and run.sh .
 
