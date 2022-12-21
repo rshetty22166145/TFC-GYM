@@ -2,7 +2,8 @@
 
 ## A Website for a fictional Toronto Fitness Club Gym as a Final Project for CSC309.
 
-## TecH Stack: Django, REST, and React.
+## Tech Stack: 
+### Django, REST, and React.
 
 ## Instructions to Run:
 
