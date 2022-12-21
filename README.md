@@ -18,7 +18,7 @@ Django, REST, and React.
 3- Project should run on localhost300:
 
 ## Snippets of Website:
-https://user-images.githubusercontent.com/62463648/208800627-dd0a9f13-22bb-4c6c-b6fc-aaec6ef0e7ec.png
+![alt text](https://user-images.githubusercontent.com/62463648/208800627-dd0a9f13-22bb-4c6c-b6fc-aaec6ef0e7ec.png)
 
 
 ## User stories
