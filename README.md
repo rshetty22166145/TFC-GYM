@@ -6,7 +6,7 @@
 
 ### 1- Clone Repository and make sure you have latest version of Django and React Intsalled.
 
-### 2- In terminal run startup.ch, renenw.ch and 
+### 2- In terminal run startup.ch, renenw.ch and run.sh .
 
 ## Contributors: Sung Hyun Cho, Rohit Shetty, Jennifer Vo
 
