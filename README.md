@@ -2,8 +2,12 @@
 
 A Website for a fictional Toronto Fitness Club Gym as a Final Project for CSC309.
 
+## Contributors: 
+Sung Hyun Cho, Rohit Shetty, Jennifer Vo
+
 ## Tech Stack: 
 Django, REST, and React.
+
 
 ## Instructions to Run:
 
@@ -41,6 +45,4 @@ As a user, I can cancel or update my current subscription. The next payment will
 
 ### 
 
-## Contributors: 
-Sung Hyun Cho, Rohit Shetty, Jennifer Vo
 
