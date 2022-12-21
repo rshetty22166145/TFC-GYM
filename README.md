@@ -4,7 +4,7 @@
 
 ## Instructions to Run:
 
-### 1-
+### 1- Clone Repository and make sure you have latest version of Django and React Intsalled.
 
 ### 2-
 
