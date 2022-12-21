@@ -19,6 +19,7 @@ Django, REST, and React.
 
 ## Snippets of Website:
 ![alt text](https://user-images.githubusercontent.com/62463648/208800627-dd0a9f13-22bb-4c6c-b6fc-aaec6ef0e7ec.png)
+![alt text](https://github.com/rshetty22166145/TFC-GYM/issues/2)
 
 
 ## User stories
