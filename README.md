@@ -8,5 +8,7 @@
 
 ### 2- In terminal run startup.ch, renenw.ch and run.sh .
 
+### 3- Project should run on localhost300:
+
 ## Contributors: Sung Hyun Cho, Rohit Shetty, Jennifer Vo
 
