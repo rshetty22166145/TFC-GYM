@@ -19,5 +19,6 @@ Django, REST, and React.
 
 ### 
 
-## Contributors: Sung Hyun Cho, Rohit Shetty, Jennifer Vo
+## Contributors: 
+Sung Hyun Cho, Rohit Shetty, Jennifer Vo
 
